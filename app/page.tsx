@@ -91,7 +91,7 @@ export default function Home() {
           </div>
         </div>
       </header>
-      <section className="w-full py-4">
+      <section className="w-full py-4" data-aos="zoom-in-down">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto">
             <div className="relative aspect-[4/3] w-full">
@@ -105,8 +105,8 @@ export default function Home() {
         <div className="grid md:grid-cols-2 gap-8 items-center">
           {/* Left Content */}
           <div className="space-y-6" data-aos="fade-right"
-     data-aos-offset="300"
-     data-aos-easing="ease-in-sine">
+            data-aos-offset="300"
+            data-aos-easing="ease-in-sine">
             <h1 className="text-3xl md:text-4xl font-bold leading-tight">জাফরান বাদাম মিল্কশেক ও মাদার মিল্ক পাউডার</h1>
             <p className="text-gray-700 leading-relaxed">
               সন্তানের পুষ্টি চাহিদা মেটাতে ও শক্তবতী মা ও শক্তের সন্তানের পুষ্টির সঠিক সমাধানে আদর্শ খাবার। জাফরান বাদাম মিল্কশেক পাউডারে রয়েছে
@@ -120,9 +120,9 @@ export default function Home() {
 
           {/* Right Image with exact border styling */}
           <div className="relative border-[3px] border-black rounded-tl-[2rem] rounded-br-[2rem]" data-aos="fade-left"
-     data-aos-anchor="#example-anchor"
-     data-aos-offset="500"
-     data-aos-duration="500">
+            data-aos-anchor="#example-anchor"
+            data-aos-offset="500"
+            data-aos-duration="500">
             <div className="relative border-[3px] border-black rounded-tl-[2rem] rounded-br-[2rem] m-1">
               {/* Outer border */}
               {/* <div className="absolute inset-0 rounded-[2rem] border-[3px] border-black"></div> */}
@@ -173,7 +173,9 @@ export default function Home() {
 
           <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
             {/* Milkshake Benefits */}
-            <div>
+            <div data-aos="fade-right"
+              data-aos-offset="300"
+              data-aos-easing="ease-in-sine">
               <h3 className="text-blue-500 text-2xl font-semibold mb-6">জাফরান বাদাম মিল্কশেকঃ</h3>
               <ul className="space-y-3">
                 {milkshakeBenefits.map((benefit, index) => (
@@ -189,7 +191,10 @@ export default function Home() {
             </div>
 
             {/* Mother Milk Benefits */}
-            <div>
+            <div data-aos="fade-left"
+              data-aos-anchor="#example-anchor"
+              data-aos-offset="500"
+              data-aos-duration="500">
               <h3 className="text-blue-500 text-2xl font-semibold mb-6">জাফরান বাদাম মাদার মিল্কঃ</h3>
               <ul className="space-y-3">
                 {motherMilkBenefits.map((benefit, index) => (
@@ -410,6 +415,18 @@ export default function Home() {
           </div>
         </div>
       </div>
+      {/* footer */}
+      <footer className="bg-[#e0e0e0] py-3 text-center">
+        <p className="text-[15px]">
+          Copyright © 2025 Digital Deal BD | This website made with{" "}
+          <span className="inline-block">
+            <svg viewBox="0 0 24 24" fill="red" className="w-[18px] h-[18px] -mt-[2px]">
+              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+            </svg>
+          </span>{" "}
+          by <span className="text-[#ffa726]">Digital Deal BD</span>
+        </p>
+      </footer>
     </main>
   );
 }
