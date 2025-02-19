@@ -26,8 +26,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-    <head>
-    <Script
+      <head>
+        <Script
           id="google-tag-manager"
           strategy="afterInteractive"
           dangerouslySetInnerHTML={{
@@ -40,7 +40,7 @@ export default function RootLayout({
             `,
           }}
         />
-    </head>
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
@@ -54,6 +54,7 @@ export default function RootLayout({
           />
         </noscript>
         {children}
+
       </body>
     </html>
   );
