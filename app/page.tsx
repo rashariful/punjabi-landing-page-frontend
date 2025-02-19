@@ -107,7 +107,7 @@ export default function Home() {
           <div className="space-y-6" data-aos="fade-right"
             data-aos-offset="300"
             data-aos-easing="ease-in-sine">
-            <h1 className="text-3xl md:text-4xl font-bold leading-tight">জাফরান বাদাম মিল্কশেক ও মাদার মিল্ক পাউডার</h1>
+            <h1 className="text-3xl md:text-4xl font-bold leading-tight text-black">জাফরান বাদাম মিল্কশেক ও মাদার মিল্ক পাউডার</h1>
             <p className="text-gray-700 leading-relaxed">
               সন্তানের পুষ্টি চাহিদা মেটাতে ও শক্তবতী মা ও শক্তের সন্তানের পুষ্টির সঠিক সমাধানে আদর্শ খাবার। জাফরান বাদাম মিল্কশেক পাউডারে রয়েছে
               প্রচুর ক্যালসিয়াম, ভিটামিন, আয়রন, প্রোটিন এবং অ্যান্টি অক্সিডেন্টের মতো বিভিন্ন উপাদান যা শারীরিক ও মানসিক বৃদ্ধিতে সহায়ক। এছাড়াও
@@ -148,7 +148,7 @@ export default function Home() {
 
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">যে সকল উপাদানে তৈরি?</h2>
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-black">যে সকল উপাদানে তৈরি?</h2>
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 max-w-5xl mx-auto">
             {ingredients.map((ingredient, index) => (
@@ -161,7 +161,7 @@ export default function Home() {
                     className="object-contain w-full h-full rounded-tl-xl rounded-br-xl"
                   />
                 </div>
-                <p className="text-lg font-medium text-center">{ingredient.name}</p>
+                <p className="text-lg font-medium text-center text-black">{ingredient.name}</p>
               </div>
             ))}
           </div>
@@ -169,7 +169,7 @@ export default function Home() {
       </section>
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-12">উপকারিতাসমূহ</h2>
+          <h2 className="text-3xl font-bold text-center mb-12 text-black">উপকারিতাসমূহ</h2>
 
           <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
             {/* Milkshake Benefits */}
@@ -179,7 +179,7 @@ export default function Home() {
               <h3 className="text-blue-500 text-2xl font-semibold mb-6">জাফরান বাদাম মিল্কশেকঃ</h3>
               <ul className="space-y-3">
                 {milkshakeBenefits.map((benefit, index) => (
-                  <li key={index} className="flex items-start gap-2">
+                  <li key={index} className="flex items-start gap-2 text-black">
                     {/* <Check className="w-5 h-5 mt-1 text-[#4FB6E9] flex-shrink-0" /> */}
                     <div className="w-8 h-8 relative flex-shrink-0">
                       <Image src={checkIcon} alt="icon" fill className="object-contain w-full h-full" />
@@ -198,7 +198,7 @@ export default function Home() {
               <h3 className="text-blue-500 text-2xl font-semibold mb-6">জাফরান বাদাম মাদার মিল্কঃ</h3>
               <ul className="space-y-3">
                 {motherMilkBenefits.map((benefit, index) => (
-                  <li key={index} className="flex items-start gap-2">
+                  <li key={index} className="flex items-start gap-2 text-black">
                     <div className="w-8 h-8 relative flex-shrink-0">
                       <Image src={checkIcon} alt="icon" fill className="object-contain w-full h-full" />
                     </div>
@@ -263,7 +263,7 @@ export default function Home() {
       </section>
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">আমাদের কাছে থেকে কেন নিবেন?</h2>
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-black">আমাদের কাছে থেকে কেন নিবেন?</h2>
 
           {/* Video Container */}
           <div className="max-w-4xl mx-auto mb-12">
@@ -290,11 +290,11 @@ export default function Home() {
       <div className="max-w-4xl mx-auto p-6 border-2 border-black rounded-lg">
         {/* Products Section */}
         <div className="mb-8">
-          <h2 className="text-lg font-medium mb-4">Your Products</h2>
+          <h2 className="text-lg font-medium mb-4 text-black">Your Products</h2>
           <div className="bg-gray-50 p-4 rounded-md">
             <div className="flex items-center gap-4">
               <Image src="/placeholder.svg" alt="Product" width={60} height={60} className="rounded-sm" />
-              <div className="flex-1">
+              <div className="flex-1 text-black">
                 <h3 className="font-bengali">Bangla Landing Page Templates Bundle x 1</h3>
                 <div className="flex items-center gap-2 mt-1">
                   <span className="text-sm">×</span>
@@ -306,7 +306,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8">
+        <div className="grid md:grid-cols-2 gap-8 text-black">
           {/* Billing Details */}
           <div>
             <h2 className="text-lg font-medium mb-4">Billing details</h2>
@@ -355,7 +355,7 @@ export default function Home() {
           </div>
 
           {/* Order Summary */}
-          <div >
+          <div className="text-black">
             <h2 className="text-lg font-medium mb-4">Your order</h2>
             <div className="bg-white border rounded-lg p-4 shadow-sm">
               <div className="space-y-4">
@@ -416,7 +416,7 @@ export default function Home() {
         </div>
       </div>
       {/* footer */}
-      <footer className="bg-[#e0e0e0] py-3 text-center">
+      <footer className="bg-[#e0e0e0] py-3 text-center text-black">
         <p className="text-[15px]">
           Copyright © 2025 Digital Deal BD | This website made with{" "}
           <span className="inline-block">
