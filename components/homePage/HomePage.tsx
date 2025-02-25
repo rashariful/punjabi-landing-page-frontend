@@ -1,11 +1,12 @@
 "use client"
 
-import { useState } from "react"
+// import { useState } from "react"
 import Image from "next/image"
 import { CheckCircle, ShoppingCart } from "lucide-react"
 // import OrderModal from "../shared/OrderModal"
 import bikasPayment from "@/public/images/payment-scan.jpg"
 import CountdownTimer from "../shared/CountdownTimer"
+import ReviewSection from "../Review"
 
 
 type Product = {
@@ -20,16 +21,18 @@ type Product = {
         type: string;
         url: string;
     };
+    video: string;
     image: string;
     colors: {
         name: string;
         imageUrl: string;
     }[];
+    bgColor: string;
 };
 
 
 const HomePage = ({ product }: { product: Product }) => {
-    const [showModal, setShowModal] = useState(false)
+    // const [showModal, setShowModal] = useState(false)
     const handleOrderClick = () => {
         window.dispatchEvent(new Event("scroll-to-checkout"));
     };
@@ -55,7 +58,7 @@ const HomePage = ({ product }: { product: Product }) => {
     };
     const priceInBengali = convertToBengaliNumerals(product.price);
     return (
-        <main className="max-w-5xl mx-auto">
+        <main className="max-w-5xl mx-auto pt-5">
             <div className="flex flex-col lg:flex-row justify-between items-center pb-10 space-y-5 lg:space-y-0">
                 <div className="lg:w-[64%]">
                     <h2 className="text-center lg:text-left text-4xl font-bold text-gray-700 w-full">আমাদের চমৎকার প্যাকেজ স্বাগতম</h2>
@@ -66,7 +69,7 @@ const HomePage = ({ product }: { product: Product }) => {
             </div>
             <div className="">
                 {/* Main Banner */}
-                <div className="bg-[#8833FF] text-white text-center">
+                <div className={`${product.bgColor} text-white text-center`}>
                     {/* Regular Price */}
                     <div className="text-[28px] font-medium leading-tight pt-4">
                         রেগুলার প্রাইস <span className="text-[#FFE600]">২৫০০</span> টাকা
@@ -74,7 +77,7 @@ const HomePage = ({ product }: { product: Product }) => {
 
                     {/* Offer Price */}
                     <div className="text-[40px] font-bold leading-tight mt-2">
-                        অফার প্রাইস মাত্র <span className="text-[#FFE600] underline decoration-[#FFE600]">২৯৯</span> টাকা
+                        অফার প্রাইস মাত্র <span className="text-[#FFE600] underline decoration-[#FFE600]">{product?.price}</span> টাকা
                     </div>
 
                     {/* Limited Time Text */}
@@ -82,7 +85,7 @@ const HomePage = ({ product }: { product: Product }) => {
                 </div>
 
                 {/* Bottom Text */}
-                <div className="text-center text-[22px] mt-4">
+                <div className="text-center text-[22px] mt-4 text-black">
                     খুব শিঘ্রই প্রাইস বাড়ানো হবে, <span className="text-[#008000]">অফার শেষ হওয়ার পূর্বেই অর্ডার করুন</span>
                 </div>
 
@@ -96,14 +99,14 @@ const HomePage = ({ product }: { product: Product }) => {
             </div>
             <div>
                 {product.media.type === "image" ? (
-                    <div className="relative w-full h-[500px] lg:h-[600px]">
+                    <div className="relative w-full h-[500px] lg:h-[600px] !rounded-lg">
                         <Image
                             src={product.media.url || "/placeholder.svg"}
                             alt={product.name}
                             layout="fill"
                             objectFit="cover"
                             // className="w-full"
-                            className="absolute inset-0 right-0 !w-full !h-full"
+                            className="absolute inset-0 right-0 !w-full !h-full !rounded-lg"
                         />
                     </div>
                     // <div className="">
@@ -126,7 +129,7 @@ const HomePage = ({ product }: { product: Product }) => {
 
             <div className=" py-8">
                 <div className="flex justify-between items-center">
-                    <h1 className="text-xl md:text-3xl font-bold mb-4">{product.name}</h1>
+                    <h1 className="text-xl md:text-3xl font-bold mb-4 text-black">{product.name}</h1>
                     {/* <p className="text-2xl font-semibold mb-4">${product.price.toFixed(2)}</p> */}
                     <p className="text-2xl font-semibold mb-4">${priceInBengali}</p>
                 </div>
@@ -140,10 +143,10 @@ const HomePage = ({ product }: { product: Product }) => {
 
                 <div className="flex justify-center">
                     <div className="mb-6">
-                        <h2 className="text-3xl font-bold mb-5">রমজান স্পেশাল প্যাকেজ অন্তর্ভুক্ত:</h2>
-                        <ul className="space-y-2">
+                        <h2 className="text-3xl font-bold mb-5 text-black">রমজান স্পেশাল প্যাকেজ অন্তর্ভুক্ত:</h2>
+                        <ul className="space-y-4">
                             {product.description.map((point, index) => (
-                                <li key={index} className="flex items-center text-3xl">
+                                <li key={index} className="flex items-center text-3xl text-black">
                                     <CheckCircle className="text-green-500 mr-2 text-2xl" />
                                     <span>{point}</span>
                                 </li>
@@ -152,23 +155,71 @@ const HomePage = ({ product }: { product: Product }) => {
                     </div>
                 </div>
 
-                <div className="flex flex-col md:flex-row  justify-between items-center mt-6">
+                <div className="w-full h-[100vh] relative overflow-x-hidden overflow-y-hidden py-14">
+                    <iframe
+                        src={product.video}
+                        title="Product Video"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                        className="w-full h-full"
+                    ></iframe>
+                </div>
+
+                <div className="flex flex-col md:flex-row justify-between items-center mt-6">
                     <div>
-                        <h3 className="text-xl font-semibold mb-2">বিকাশ দিয়ে পেমেন্ট করুন</h3>
-                        {/* <p className="mb-2">বিকাশ নম্বর: 01XXXXXXXXX</p> */}
-                        <Image src={bikasPayment} alt="Bikas-payment method" width={300} height={300}></Image>
+                        <h3 className="text-xl font-semibold mb-2 text-black">বিকাশ দিয়ে পেমেন্ট করুন</h3>
+                        <Image
+                            src={bikasPayment}
+                            alt="Bikas-payment method"
+                            width={300}
+                            height={300}
+                        ></Image>
                     </div>
+
                     <div className="flex justify-end">
-                        <button onClick={handleOrderClick} className="bg-green-600 hover:bg-green-600/80 animate-bounce text-white px-8 py-2.5 rounded-md flex items-center gap-2 text-xl">
+                        <div>
+                            {/* Bikas transaction step instructions */}
+                            <div className="bg-gray-100 rounded-md">
+                                <h4 className="font-semibold text-xl text-black mb-2">
+                                    বিকাশ থেকে ট্রানজেকশন আইডি পাওয়ার স্টেপ:
+                                </h4>
+                                <ul className="list-disc pl-5 text-lg text-gray-700">
+                                    {/* <li>বিকাশ অ্যাপ ওপেন করুন</li>
+                                    <li>ট্রানজেকশন হিস্ট্রি দেখুন</li>
+                                    <li>ট্রানজেকশন ডিটেইলস সিলেক্ট করুন</li>
+                                    <li>ট্রানজেকশন আইডি দেখুন</li>
+                                     */}
+                                    <li>এসএমএসে ট্রানজেকশন আইডি দেখুন</li>
+                                    <li>ট্রানজেকশন আইডি কপি করুন</li>
+                                    <li>এটি আপনার অর্ডার কনফার্মেশনে ব্যবহার করুন।</li>
+                                </ul>
+                                <h4 className="font-semibold text-xl text-black mt-4">
+                                    অ্যাপে ট্রানজেকশন আইডি দেখার পদ্ধতি:
+                                </h4>
+                                <p className="text-lg text-gray-700">
+                                    ১. বিকাশ অ্যাপ খুলুন।
+                                    <br />
+                                    ২. &quot;Transaction History&quot; অপশনে যান।
+                                    <br />
+                                    ৩. আপনার পেমেন্ট ট্রানজেকশন সিলেক্ট করুন।
+                                    <br />
+                                    ৪. &quot;Transaction ID&quot; অথবা &quot;TXN ID&quot; খুঁজুন, যা আপনি ট্রানজেকশন <br /> ডিটেইলসে দেখতে পাবেন।
+                                    <br />
+                                    ৫. এটি আপনার অর্ডার কনফার্মেশনে ব্যবহার করুন।
+                                </p>
+                            </div>
+                            <button
+                            onClick={handleOrderClick}
+                            className="mt-10 bg-green-600 hover:bg-green-600/80 animate-bounce text-white px-8 py-2.5 rounded-md flex items-center gap-2 text-xl "
+                        >
                             <ShoppingCart className="w-6 h-6" />
                             অর্ডার করুন
                         </button>
+                        </div>
                     </div>
                 </div>
-                {/* 
-        {showModal && (
-          <OrderModal onClose={() => setShowModal(false)} productTitle={product.title} colors={product.colors} />
-        )} */}
+
+                <ReviewSection/>
             </div>
         </main>
     )
