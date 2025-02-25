@@ -230,7 +230,7 @@ const Checkout = ({ product }: { product: Product }) => {
                       +
                     </button>
                   </div>
-                  <span className="text-sm">৳ {product.price * quantity}</span>
+                  <span className="text-sm">৳ {(product.price * quantity).toFixed(2)}</span>
                 </div>
 
               </div>
@@ -242,7 +242,7 @@ const Checkout = ({ product }: { product: Product }) => {
 
               <div className="flex justify-between border-t pt-2 font-medium">
                 <span>Total</span>
-                <span className="text-lg">৳ {totalPrice}</span>
+                <span className="text-lg">৳ {totalPrice.toFixed(2)}</span>
               </div>
               <div>
                 <label className="block font-bengali mb-1">
