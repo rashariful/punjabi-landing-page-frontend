@@ -47,9 +47,10 @@ export default function Login() {
     e.preventDefault(); // Prevent page reload
     setError(null); // Clear previous errors
     setLoading(true); // Set loading state
+    console.log("API URL:", process.env.NEXT_PUBLIC_REACT_APP_ROOT)
 
     try {
-      const response = await fetch(`${API_URL}api/v1/admins/login`, {
+      const response = await fetch(`${API_URL}/api/v1/admins/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
