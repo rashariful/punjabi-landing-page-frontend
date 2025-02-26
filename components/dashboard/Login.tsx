@@ -47,7 +47,6 @@ export default function Login() {
     e.preventDefault(); // Prevent page reload
     setError(null); // Clear previous errors
     setLoading(true); // Set loading state
-    console.log("API URL:", process.env.NEXT_PUBLIC_REACT_APP_ROOT)
 
     try {
       const response = await fetch(`${API_URL}/admins/login`, {
@@ -104,7 +103,7 @@ export default function Login() {
               name="contactNo"
               value={contactNo}
               onChange={handleContactChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 placeholder:text-gray-800"
               placeholder="Enter your Contact No"
               required
             />
@@ -122,7 +121,7 @@ export default function Login() {
                 name="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 placeholder:text-gray-800"
                 placeholder="Enter your password"
                 required
               />

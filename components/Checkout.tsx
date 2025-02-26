@@ -3,15 +3,21 @@
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
+interface ProductDetail {
+  productImage: string;
+  productName: string;
+  productPrice: number;
+}
 
 type Product = {
   id: number;
   name: string;
   title: string;
-  price: number;
+  totalPrice: number;
+  offerPrice: number;
   startDate: string;
   endDate: string;
-  description: string[];
+  details: ProductDetail[];
   media: {
     type: string;
     url: string;
@@ -27,14 +33,16 @@ const Checkout = ({ product }: { product: Product }) => {
   const checkoutRef = useRef<HTMLDivElement>(null);
   const [name, setName] = useState("");
   const [mobile, setMobile] = useState("");
-  const [deliveryLocation, setDeliveryLocation] = useState("inside-dhaka"); 
+  const [deliveryLocation, setDeliveryLocation] = useState("inside-dhaka");
   const [address, setAdress] = useState("");
   const [quantity, setQuantity] = useState(1);
   const [transactionId, setTransactionId] = useState("");
+  const [selectedSize, setSelectedSize] = useState("");
   const API_URL = process.env.NEXT_PUBLIC_REACT_APP_ROOT;
+  const [error, setError] = useState<string | null>(null)
 
   const deliveryCharge = deliveryLocation === "inside-dhaka" ? 70 : 130;
-  const totalPrice = product.price * quantity + deliveryCharge;
+  const totalPrice = product.offerPrice * quantity + deliveryCharge;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -46,9 +54,24 @@ const Checkout = ({ product }: { product: Product }) => {
     return () => window.removeEventListener("scroll-to-checkout", handleScroll);
   }, []);
 
+  const handleContactChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+
+    // Only allow numeric input and check for exact 11 digits
+    if (/^\d{0,11}$/.test(value)) {
+      setMobile(value);
+
+      if (value.length === 11) {
+        setError(""); // Clear error if valid
+      } else {
+        setError("Phone number must be exactly.");
+      }
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     // console.log("Order Submission Attempt:");
     // console.log("Name:", name);
     // console.log("Mobile:", mobile);
@@ -56,12 +79,12 @@ const Checkout = ({ product }: { product: Product }) => {
     // console.log("Transaction ID:", transactionId);
     // console.log("Quantity:", quantity);
     // console.log("Total Price:", totalPrice);
-    
+
     if (!name || !mobile || !address || !transactionId) {
       toast.error("সব প্রয়োজনীয় তথ্য পূরণ করুন!");
       return;
     }
-    
+
     // Order data
     const orderData = {
       name,
@@ -72,10 +95,12 @@ const Checkout = ({ product }: { product: Product }) => {
       deliveryCharge,
       total: totalPrice,
       package: product.title,
+      size: selectedSize,
+      transactionId,
     };
-  
+
     // console.log("Sending Order Data:", orderData);
-    
+
     try {
       const response = await fetch(`${API_URL}/orders`, {
         method: "POST",
@@ -87,8 +112,8 @@ const Checkout = ({ product }: { product: Product }) => {
       // console.log("Full Response:", response);
       const result = await response.json();
       // console.log("API Response:", result);
-  
-      if ( result.success) {
+
+      if (result.success) {
         toast.success("অর্ডার সফলভাবে সম্পন্ন হয়েছে! SMS পাঠানো হয়েছে।");
         setTimeout(() => {
           window.location.href = "https://www.icchaporon.com/";
@@ -101,7 +126,7 @@ const Checkout = ({ product }: { product: Product }) => {
       toast.error("অর্ডার সম্পন্ন করতে ব্যর্থ হয়েছে!");
     }
   };
-  
+
   return (
     <div ref={checkoutRef} id="checkout-section" className="max-w-5xl mx-auto p-6 border-2 border-black rounded-lg my-10">
       <div className="mb-8">
@@ -113,7 +138,7 @@ const Checkout = ({ product }: { product: Product }) => {
               <div className="flex-1 text-black">
                 <h3 className="font-bengali">{product.title}</h3>
                 <div className="flex items-center gap-2 mt-1">
-                  <span className="text-sm">৳ {product.price}</span>
+                  <span className="text-sm">৳ {product.offerPrice}</span>
                 </div>
               </div>
             </div>
@@ -133,15 +158,16 @@ const Checkout = ({ product }: { product: Product }) => {
                 তোমার নাম <span className="text-red-500">*</span>
               </label>
               <input
-              name="name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+                name="name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
                 type="text"
                 required
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-transparent"
               />
             </div>
             <div>
+            {error && <p className="text-red-500 text-center mb-4">{error}</p>}
               <label className="block font-bengali mb-1">
                 মোবাইল <span className="text-red-500">*</span>
               </label>
@@ -149,7 +175,7 @@ const Checkout = ({ product }: { product: Product }) => {
                 type="tel"
                 name="contactNo"
                 value={mobile}
-                onChange={(e) => setMobile(e.target.value)}
+                onChange={handleContactChange}
                 required
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-transparent"
               />
@@ -167,7 +193,7 @@ const Checkout = ({ product }: { product: Product }) => {
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-transparent"
               ></textarea>
             </div>
-            <div>
+            {/* <div>
               <label className="block font-bengali mb-1">
                 ডেলিভারি এলাকা <span className="text-red-500">*</span>
               </label>
@@ -196,7 +222,55 @@ const Checkout = ({ product }: { product: Product }) => {
                   <span>Outside Dhaka (৳ 130)</span>
                 </label>
               </div>
+            </div> */}
+
+            {/* Size Selection */}
+            <label className="block font-bengali mb-2 text-lg font-semibold">
+              সাইজ নির্বাচন করুন
+            </label>
+            <div className="flex gap-4">
+              {["40", "42", "44"].map((size) => (
+                <button
+                  key={size}
+                  className={`px-6 py-2 text-sm font-semibold border rounded-md ${selectedSize === size
+                    ? "bg-pink-600 text-white"
+                    : "border-pink-600 text-pink-600"
+                    }`}
+                  onClick={() => setSelectedSize(size)}
+                >
+                  {size}
+                </button>
+              ))}
             </div>
+            <div>
+              <label className="block font-bengali mb-2 text-lg font-semibold">
+                ডেলিভারি চার্জ
+              </label>
+              <div className="flex gap-4 items-center">
+                {/* Inside Dhaka Button */}
+                <button
+                  className={`px-3 py-3 text-sm font-semibold border rounded-md ${deliveryLocation === "inside-dhaka"
+                    ? "bg-pink-600 text-white"
+                    : "border-pink-600 text-pink-600"
+                    }`}
+                  onClick={() => setDeliveryLocation("inside-dhaka")}
+                >
+                  ঢাকার ভিতরে (Inside Dhaka)
+                </button>
+
+                {/* Outside Dhaka Button */}
+                <button
+                  className={`px-4 py-3 text-sm font-semibold border rounded-md ${deliveryLocation === "outside-dhaka"
+                    ? "bg-pink-600 text-white"
+                    : "border-pink-600 text-pink-600"
+                    }`}
+                  onClick={() => setDeliveryLocation("outside-dhaka")}
+                >
+                  ঢাকার বাহিরে (Outside Dhaka)
+                </button>
+              </div>
+            </div>
+
 
           </div>
         </div>
@@ -230,7 +304,7 @@ const Checkout = ({ product }: { product: Product }) => {
                       +
                     </button>
                   </div>
-                  <span className="text-sm">৳ {(product.price * quantity).toFixed(2)}</span>
+                  <span className="text-sm">৳ {(product.offerPrice * quantity).toFixed(2)}</span>
                 </div>
 
               </div>

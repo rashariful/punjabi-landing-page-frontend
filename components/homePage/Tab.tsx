@@ -2,14 +2,20 @@
 import { useState } from "react";
 import HomePage from "./HomePage";
 import Checkout from "../Checkout";
+interface ProductDetail {
+    productImage: string;
+    productName: string;
+    productPrice: number;
+  }
 interface Product {
     id: number;
     name: string;
     title: string;
-    price: number;
+    totalPrice: number;
+    offerPrice: number;
     startDate: string;
     endDate: string;
-    description: string[];
+    details: ProductDetail[]; 
     media: { type: string; url: string };
     video: string;
     image: string;
@@ -27,15 +33,14 @@ const Tab = ({ products }: { products: Products }) => {
     const [activeTab, setActiveTab] = useState("প্রিমিয়াম পাঞ্জাবি প্যাকেজ")
     return (
         <div className="max-w-5xl mx-auto">
-            <div className="py-5">
+            <div className="py-5 flex justify-center">
                 <div className="border-b border-gray-200">
                     <nav className="flex gap-8">
                         {tabs.map((tab) => (
                             <button
                                 key={tab}
                                 onClick={() => setActiveTab(tab)}
-                                className={`pb-4 text-lg font-medium relative ${activeTab === tab ? "text-white bg-fuchsia-700 border-black" : "text-gray-500 hover:text-black"
-                                    }`}
+                                className={`p-5 text-lg font-semibold relative text-white rounded ${tab==="প্রিমিয়াম পাঞ্জাবি প্যাকেজ" ?`${products?.package1?.bgColor}`: `${products?.package2?.bgColor}`} ${activeTab === tab ? "" : "bg-opacity-60"}`}
                             >
                                 {tab}
                             </button>

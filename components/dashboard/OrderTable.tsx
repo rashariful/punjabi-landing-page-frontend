@@ -407,7 +407,7 @@ export default function OrderTable() {
   };
 
   return (
-    <div className="w-full">
+    <div className="w-full text-black">
       <div className="mb-6 flex flex-col sm:flex-row justify-between items-center">
         <div className="relative w-72">
           <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
@@ -415,14 +415,14 @@ export default function OrderTable() {
         </div>
       </div>
       {loading ? (
-        <p className="text-center">Loading orders...</p>
+        <p className="text-center text-black">Loading orders...</p>
       ) : error ? (
         <p className="text-center text-red-500">{error}</p>
       ) : (
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto text-black">
           <table className="w-full border-collapse">
             <thead>
-              <tr className="bg-gray-100">
+              <tr className="bg-gray-100 text-black">
                 <th className="p-3 text-left">Transaction ID</th>
                 <th className="p-3 text-left">Customer</th>
                 <th className="p-3 text-left">Mobile No</th>
@@ -433,7 +433,7 @@ export default function OrderTable() {
             </thead>
             <tbody>
               {orders.map((order) => (
-                <tr key={order._id} className="border-b">
+                <tr key={order._id} className="border-b text-black">
                   <td className="p-3 font-medium">{order.transactionId}</td>
                   <td className="p-3">{order.name}</td>
                   <td className="p-3">{order.contactNo}</td>

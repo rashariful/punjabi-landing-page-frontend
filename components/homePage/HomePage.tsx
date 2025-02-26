@@ -2,21 +2,26 @@
 
 // import { useState } from "react"
 import Image from "next/image"
-import { CheckCircle, ShoppingCart } from "lucide-react"
+import { ShoppingCart } from "lucide-react"
 // import OrderModal from "../shared/OrderModal"
 import bikasPayment from "@/public/images/payment-scan.jpg"
 import CountdownTimer from "../shared/CountdownTimer"
 import ReviewSection from "../Review"
 
-
+interface ProductDetail {
+    productImage: string;
+    productName: string;
+    productPrice: number;
+}
 type Product = {
     id: number;
     name: string;
     title: string;
-    price: number;
+    totalPrice: number;
+    offerPrice: number;
     startDate: string;
     endDate: string;
-    description: string[];
+    details: ProductDetail[];
     media: {
         type: string;
         url: string;
@@ -56,7 +61,7 @@ const HomePage = ({ product }: { product: Product }) => {
 
         return convertedInteger + convertedDecimal;
     };
-    const priceInBengali = convertToBengaliNumerals(product.price);
+    const priceInBengali = convertToBengaliNumerals(product.offerPrice);
     return (
         <main className="max-w-5xl mx-auto pt-5">
             <div className="flex flex-col lg:flex-row justify-between items-center pb-10 space-y-5 lg:space-y-0">
@@ -72,12 +77,12 @@ const HomePage = ({ product }: { product: Product }) => {
                 <div className={`${product.bgColor} text-white text-center`}>
                     {/* Regular Price */}
                     <div className="text-[28px] font-medium leading-tight pt-4">
-                        রেগুলার প্রাইস <span className="text-[#FFE600]">২৫০০</span> টাকা
+                        রেগুলার প্রাইস <span className="text-[#FFE600]">{product.totalPrice}</span> টাকা
                     </div>
 
                     {/* Offer Price */}
                     <div className="text-[40px] font-bold leading-tight mt-2">
-                        অফার প্রাইস মাত্র <span className="text-[#FFE600] underline decoration-[#FFE600]">{product?.price}</span> টাকা
+                        অফার প্রাইস মাত্র <span className="text-[#FFE600] underline decoration-[#FFE600]">{product?.offerPrice}</span> টাকা
                     </div>
 
                     {/* Limited Time Text */}
@@ -142,20 +147,59 @@ const HomePage = ({ product }: { product: Product }) => {
                 </div>
 
                 <div className="flex justify-center">
-                    <div className="mb-6">
+                    <div className="">
                         <h2 className="text-3xl font-bold mb-5 text-black">রমজান স্পেশাল প্যাকেজ অন্তর্ভুক্ত:</h2>
-                        <ul className="space-y-4">
-                            {product.description.map((point, index) => (
-                                <li key={index} className="flex items-center text-3xl text-black">
-                                    <CheckCircle className="text-green-500 mr-2 text-2xl" />
-                                    <span>{point}</span>
-                                </li>
+                        {/* <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+                            {product?.details?.map((product, index) => (
+                                <div key={index} className="flex items-center text-3xl text-black">
+                                   
+                                    <Image src={product.productImage || "/placeholder.svg"} alt={product.productName} width={200} height={200} className=" " />
+                                    
+                                    <div className="flex items-center justify-between">
+                                        <h1>{product.productName}</h1>
+                                        <p>{product.productPrice}</p>
+                                    </div>
+                                </div>
                             ))}
-                        </ul>
+                        </div> */}
+                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 max-w-5xl mx-auto">
+                            {product?.details?.map((product, index) => (
+                                <div key={index} className="flex flex-col items-center">
+                                    <div className="w-56 h-56 relative mb-2 !rounded-xl">
+                                        <Image
+                                            src={product.productImage || "/placeholder.svg"}
+                                            alt={product.productName}
+                                            fill
+                                            className="object-contain w-full h-full !rounded-xl"
+                                        />
+                                    </div>
+                                    <div className="flex items-center !justify-between gap-10">
+                                        <h1 className="text-gray-800 font-semibold">{product.productName}</h1>
+                                        <p className="text-gray-700 font-medium ">৳{product.productPrice}</p>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                        <div className="flex justify-center my-10">
+                            <div className="text-center">
+                                <div className="text-xl font-semibold pt-4">
+                                    রেগুলার প্রাইস <span className="text-purple-700">{product.totalPrice}</span> টাকা
+                                </div>
+
+                                {/* Offer Price */}
+                                <div className="text-xl font-semibold mt-2">
+                                    অফার প্রাইস মাত্র <span className="text-purple-700 underline decoration-purple-700">{product?.offerPrice}</span> টাকা
+                                </div>
+                                <button onClick={handleOrderClick} className="bg-green-600 hover:bg-green-600/80 animate-bounce text-white px-8 py-2.5 rounded-md flex items-center gap-2 text-xl mt-10 ml-5">
+                                    <ShoppingCart className="w-6 h-6" />
+                                    অর্ডার করুন
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <div className="w-full h-[100vh] relative overflow-x-hidden overflow-y-hidden py-14">
+                <div className="w-full h-[100vh] relative overflow-x-hidden overflow-y-hidden py-10">
                     <iframe
                         src={product.video}
                         title="Product Video"
@@ -209,17 +253,17 @@ const HomePage = ({ product }: { product: Product }) => {
                                 </p>
                             </div>
                             <button
-                            onClick={handleOrderClick}
-                            className="mt-10 bg-green-600 hover:bg-green-600/80 animate-bounce text-white px-8 py-2.5 rounded-md flex items-center gap-2 text-xl "
-                        >
-                            <ShoppingCart className="w-6 h-6" />
-                            অর্ডার করুন
-                        </button>
+                                onClick={handleOrderClick}
+                                className="mt-10 bg-green-600 hover:bg-green-600/80 animate-bounce text-white px-8 py-2.5 rounded-md flex items-center gap-2 text-xl "
+                            >
+                                <ShoppingCart className="w-6 h-6" />
+                                অর্ডার করুন
+                            </button>
                         </div>
                     </div>
                 </div>
 
-                <ReviewSection/>
+                <ReviewSection />
             </div>
         </main>
     )

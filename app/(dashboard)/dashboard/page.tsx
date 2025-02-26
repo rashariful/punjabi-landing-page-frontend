@@ -6,7 +6,7 @@ import React from 'react';
 const DashboardPage = () => {
   return (
     <div>
-      <h1 className='py-10 text-xl font-semibold '>Welcome to the prio Fashion BD Dashboard</h1>
+      <h1 className='py-10 text-xl font-semibold text-black'>Welcome to the prio Fashion BD Dashboard</h1>
       <OrderTable/>
     </div>
   );

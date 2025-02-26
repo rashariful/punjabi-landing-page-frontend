@@ -12,15 +12,56 @@ const products = {
     id: 1,
     name: "প্রিমিয়াম পাঞ্জাবি প্যাকেজ",
     title: "প্রিমিয়াম পাঞ্জাবি প্যাকেজ",
-    price: 900.99,
+    totalPrice: 2240,
+    offerPrice: 1490,
     startDate: "2025-02-16T10:00:00Z",
     endDate: "2025-08-30T23:59:59Z",
-    description: [
-      "পাঞ্জাবি – নামাজ ও বিশেষ উপলক্ষের জন্য আরামদায়ক ও মার্জিত",
-      "তসবিহ – উন্নত মানের প্রার্থনার মালা",
-      "আত্তর – দীর্ঘস্থায়ী, অ্যালকোহল-মুক্ত সুগন্ধি",
-      "জায়নামাজ – নরম ও টেকসই নামাজের মাদুর",
-      "খিমার – মহিলাদের জন্য শালীন ও স্টাইলিশ হিজাব"
+    details: [
+      // "পাঞ্জাবি – নামাজ ও বিশেষ উপলক্ষের জন্য আরামদায়ক ও মার্জিত",
+      // "তসবিহ – উন্নত মানের প্রার্থনার মালা",
+      // "আত্তর – দীর্ঘস্থায়ী, অ্যালকোহল-মুক্ত সুগন্ধি",
+      // "জায়নামাজ – নরম ও টেকসই নামাজের মাদুর",
+      // "খিমার – মহিলাদের জন্য শালীন ও স্টাইলিশ হিজাব"
+      { 
+        productImage: productImage.src,
+        productName: "পাঞ্জাবি",
+        productPrice: 1200
+      },
+      { 
+        productImage: productImage.src,
+        productName: "জায়নামাজ",
+        productPrice: 550
+      },
+      { 
+        productImage: productImage.src,
+        productName: "আত্তর ",
+        productPrice: 180
+      },
+      { 
+        productImage: productImage.src,
+        productName: "তসবিহ",
+        productPrice: 110
+      },
+      { 
+        productImage: productImage.src,
+        productName: "মেসওয়াক",
+        productPrice: 25
+      },
+      { 
+        productImage: productImage.src,
+        productName: "টুপি",
+        productPrice: 30
+      },
+      { 
+        productImage: productImage.src,
+        productName: "ইসলামিক বই",
+        productPrice: 60
+      },
+      { 
+        productImage: productImage.src,
+        productName: "বক্স",
+        productPrice: 80
+      },
     ],
     media: {
       type: "image",
@@ -39,15 +80,56 @@ const products = {
     id: 2, 
     name: "প্রিমিয়াম লং খিমার প্যাকেজ",
     title: "প্রিমিয়াম লং খিমার প্যাকেজ",
-    price: 1000,
+    totalPrice: 1815,
+    offerPrice: 1490,
     startDate: "2025-02-16T10:00:00Z",
     endDate: "2025-06-30T23:59:59Z",
-    description: [
-      "পাঞ্জাবি – নামাজ ও বিশেষ উপলক্ষের জন্য আরামদায়ক ও মার্জিত",
-      "তসবিহ – উন্নত মানের প্রার্থনার মালা",
-      "আত্তর – দীর্ঘস্থায়ী, অ্যালকোহল-মুক্ত সুগন্ধি",
-      "জায়নামাজ – নরম ও টেকসই নামাজের মাদুর",
-      "খিমার – মহিলাদের জন্য শালীন ও স্টাইলিশ হিজাব"
+    details: [
+      // "পাঞ্জাবি – নামাজ ও বিশেষ উপলক্ষের জন্য আরামদায়ক ও মার্জিত",
+      // "তসবিহ – উন্নত মানের প্রার্থনার মালা",
+      // "আত্তর – দীর্ঘস্থায়ী, অ্যালকোহল-মুক্ত সুগন্ধি",
+      // "জায়নামাজ – নরম ও টেকসই নামাজের মাদুর",
+      // "খিমার – মহিলাদের জন্য শালীন ও স্টাইলিশ হিজাব"
+      { 
+        productImage: productImage.src,
+        productName: "লং খিমার",
+        productPrice: 750
+      },
+      { 
+        productImage: productImage.src,
+        productName: "জায়নামাজ",
+        productPrice: 750
+      },
+      { 
+        productImage: productImage.src,
+        productName: "আত্তর",
+        productPrice: 180
+      },
+      { 
+        productImage: productImage.src,
+        productName: "তসবিহ",
+        productPrice: 110
+      },
+      { 
+        productImage: productImage.src,
+        productName: "মেসওয়াক",
+        productPrice: 25
+      },
+      { 
+        productImage: productImage.src,
+        productName: "ইনার ক্যাপ",
+        productPrice: 60
+      },
+      { 
+        productImage: productImage.src,
+        productName: "ইসলামিক বই",
+        productPrice: 60
+      },
+      { 
+        productImage: productImage.src,
+        productName: "বক্স",
+        productPrice: 80
+      },
     ],
     media: {
       type: "image",
