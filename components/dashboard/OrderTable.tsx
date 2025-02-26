@@ -356,7 +356,7 @@ export default function OrderTable() {
 
     const fetchOrders = async () => {
       try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_REACT_APP_ROOT}/orders`, {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_REACT_APP_ROOT}api/v1/orders`, {
           headers: {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
@@ -384,7 +384,7 @@ export default function OrderTable() {
     const token = localStorage.getItem("token");
     console.log(token, "tok");
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_REACT_APP_ROOT}/orders/${orderId}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_REACT_APP_ROOT}api/v1/orders/${orderId}`, {
         method: "PATCH",
         headers: {
           Authorization: `Bearer ${token}`,

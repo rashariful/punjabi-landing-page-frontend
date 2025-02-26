@@ -49,7 +49,7 @@ export default function Login() {
     setLoading(true); // Set loading state
 
     try {
-      const response = await fetch(`${API_URL}/admins/login`, {
+      const response = await fetch(`${API_URL}api/v1/admins/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

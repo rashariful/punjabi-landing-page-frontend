@@ -23,8 +23,8 @@ interface Product {
   };
 
 const Tab = ({ products }: { products: Products }) => {
-    const tabs = ["Offer Package One", "Offer Package Two"];
-    const [activeTab, setActiveTab] = useState("Offer Package One")
+    const tabs = ["প্রিমিয়াম পাঞ্জাবি প্যাকেজ", "প্রিমিয়াম লং খিমার প্যাকেজ"];
+    const [activeTab, setActiveTab] = useState("প্রিমিয়াম পাঞ্জাবি প্যাকেজ")
     return (
         <div className="max-w-5xl mx-auto">
             <div className="py-5">
@@ -34,7 +34,7 @@ const Tab = ({ products }: { products: Products }) => {
                             <button
                                 key={tab}
                                 onClick={() => setActiveTab(tab)}
-                                className={`pb-4 text-lg font-medium relative ${activeTab === tab ? "text-black border-b-2 border-black" : "text-gray-500 hover:text-black"
+                                className={`pb-4 text-lg font-medium relative ${activeTab === tab ? "text-white bg-fuchsia-700 border-black" : "text-gray-500 hover:text-black"
                                     }`}
                             >
                                 {tab}
@@ -43,13 +43,13 @@ const Tab = ({ products }: { products: Products }) => {
                     </nav>
                 </div>
             </div>
-            {activeTab === "Offer Package One" && (
+            {activeTab === "প্রিমিয়াম পাঞ্জাবি প্যাকেজ" && (
                 <div className="py-8">
                     <HomePage product={products.package1} />
                     <Checkout product={products.package1} />
                 </div>
             )}
-            {activeTab === "Offer Package Two" && (
+            {activeTab === "প্রিমিয়াম লং খিমার প্যাকেজ" && (
                 <div className="py-8">
                     <HomePage product={products.package2}  />
                     <Checkout product={products.package2} />

@@ -10,8 +10,8 @@ import productImg2 from "@/public/images/Dark-Green-Ash-Grey-Floral-2.webp"
 const products = {
   package1: {
     id: 1,
-    name: "প্রিমিয়াম রমজান পুরুষ প্যাকেজ",
-    title: "প্রিমিয়াম রমজান পুরুষ প্যাকেজ",
+    name: "প্রিমিয়াম পাঞ্জাবি প্যাকেজ",
+    title: "প্রিমিয়াম পাঞ্জাবি প্যাকেজ",
     price: 900.99,
     startDate: "2025-02-16T10:00:00Z",
     endDate: "2025-08-30T23:59:59Z",
@@ -37,8 +37,8 @@ const products = {
   },
   package2: {
     id: 2, 
-    name: "প্রিমিয়াম রমজান মহিলা প্যাকেজ",
-    title: "প্রিমিয়াম রমজান মহিলা প্যাকেজ",
+    name: "প্রিমিয়াম লং খিমার প্যাকেজ",
+    title: "প্রিমিয়াম লং খিমার প্যাকেজ",
     price: 1000,
     startDate: "2025-02-16T10:00:00Z",
     endDate: "2025-06-30T23:59:59Z",
