@@ -148,7 +148,7 @@ const HomePage = ({ product }: { product: Product }) => {
 
                 <div className="flex justify-center">
                     <div className="">
-                        <h2 className="text-3xl font-bold mb-5 text-black">রমজান স্পেশাল প্যাকেজ অন্তর্ভুক্ত:</h2>
+                        <h2 className="text-3xl font-bold mb-5 text-black">রমজান স্পেশাল {product.title} অন্তর্ভুক্ত:</h2>
                         {/* <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                             {product?.details?.map((product, index) => (
                                 <div key={index} className="flex items-center text-3xl text-black">
