@@ -77,7 +77,7 @@ const Checkout = ({ product }: { product: Product }) => {
     // console.log("Sending Order Data:", orderData);
     
     try {
-      const response = await fetch(`${API_URL}/api/v1/orders`, {
+      const response = await fetch(`${API_URL}/orders`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

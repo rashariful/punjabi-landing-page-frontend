@@ -30,7 +30,7 @@ export default function ChangePassword() {
     setLoading(true)
 
     try {
-      const response = await fetch(`${API_URL}/api/v1/admins/change-password`, {
+      const response = await fetch(`${API_URL}/admins/change-password`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -50,7 +50,7 @@ export default function Login() {
     console.log("API URL:", process.env.NEXT_PUBLIC_REACT_APP_ROOT)
 
     try {
-      const response = await fetch(`${API_URL}/api/v1/admins/login`, {
+      const response = await fetch(`${API_URL}/admins/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
