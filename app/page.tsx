@@ -151,7 +151,7 @@ const products = {
 
 export default function Home() {
   return (
-    <main className="bg-orange-50 overflow-x-hidden">
+    <main className="bg-orange-50 overflow-x-hidden px-4">
       <Tab products={products}/>
       {/* <HomePage product={product}/> */}
       {/* checkout */}

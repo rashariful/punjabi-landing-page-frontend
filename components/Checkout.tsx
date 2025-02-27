@@ -329,7 +329,7 @@ const Checkout = ({ product }: { product: Product }) => {
     //   </form>
     //   <Toaster />
     // </div>
-    <div ref={checkoutRef} id="checkout-section" className="mx-auto max-w-5xl p-4">
+    <div ref={checkoutRef} id="checkout-section" className="mx-auto max-w-5xl">
       <h2 className="mb-8 text-3xl font-bold text-center text-gray-800">Your Order</h2>
 
       <div className="bg-white rounded-lg shadow-lg overflow-hidden">
