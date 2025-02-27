@@ -31,7 +31,7 @@ interface Product {
 
 const Tab = ({ products }: { products: Products }) => {
     const tabs = ["প্রিমিয়াম লং খিমার প্যাকেজ", "প্রিমিয়াম পাঞ্জাবি প্যাকেজ"];
-    const [activeTab, setActiveTab] = useState("প্রিমিয়াম পাঞ্জাবি প্যাকেজ")
+    const [activeTab, setActiveTab] = useState("প্রিমিয়াম লং খিমার প্যাকেজ")
     return (
         <div className="max-w-5xl mx-auto">
             <div className="py-5 flex justify-center">
