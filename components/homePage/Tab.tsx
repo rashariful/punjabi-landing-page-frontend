@@ -17,6 +17,7 @@ interface Product {
     endDate: string;
     details: ProductDetail[]; 
     media: { type: string; url: string };
+    size: boolean;
     video: string;
     image: string;
     colors: { name: string; imageUrl: string }[];
@@ -40,7 +41,7 @@ const Tab = ({ products }: { products: Products }) => {
                             <button
                                 key={tab}
                                 onClick={() => setActiveTab(tab)}
-                                className={`p-5 text-lg font-semibold relative text-white rounded ${tab==="প্রিমিয়াম পাঞ্জাবি প্যাকেজ" ?`bg-[#0099DD]`: ` bg-[#DE3163]`} ${activeTab === tab ? "" : "bg-opacity-60"}`}
+                                className={`p-3 text-sm md:p-5 md:text-lg font-semibold relative text-white rounded ${tab==="প্রিমিয়াম পাঞ্জাবি প্যাকেজ" ?`bg-[#0099DD]`: ` bg-[#DE3163]`} ${activeTab === tab ? "" : "bg-opacity-60"}`}
                             >
                                 {tab}
                             </button>

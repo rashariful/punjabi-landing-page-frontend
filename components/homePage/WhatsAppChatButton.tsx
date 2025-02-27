@@ -82,7 +82,7 @@ export default function WhatsAppChatButton() {
               Call us
             </div>
             <a
-              href="tel:01303588099"
+              href="tel:01623766660"
               className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-500 text-white shadow-lg transition-all duration-300 hover:bg-blue-500/80 hover:rotate-12"
               aria-label="Call us"
             >
@@ -96,7 +96,7 @@ export default function WhatsAppChatButton() {
               Chat on WhatsApp
             </div>
             <a
-              href="https://wa.me/8801303588099"
+              href="https://wa.me/8801623766660"
               className="flex h-10 w-10 items-center justify-center rounded-full  bg-green-500 text-white shadow-lg transition-all duration-300 hover:bg-green-500/80 hover:rotate-12"
               aria-label="Contact us on WhatsApp"
             >

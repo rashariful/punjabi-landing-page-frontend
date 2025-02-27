@@ -98,12 +98,12 @@ export default function Login() {
               Contact No
             </label>
             <input
-              type="number"
+              type="text"
               id="contactNo"
               name="contactNo"
               value={contactNo}
               onChange={handleContactChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 placeholder:text-gray-800"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 text-gray-800"
               placeholder="Enter your Contact No"
               required
             />
@@ -121,7 +121,7 @@ export default function Login() {
                 name="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 placeholder:text-gray-800"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 text-gray-800"
                 placeholder="Enter your password"
                 required
               />

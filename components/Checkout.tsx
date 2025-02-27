@@ -22,7 +22,9 @@ type Product = {
     type: string;
     url: string;
   };
+  size: boolean;
   image: string;
+  bgColor: string;
   colors: {
     name: string;
     imageUrl: string;
@@ -69,19 +71,29 @@ const Checkout = ({ product }: { product: Product }) => {
     }
   };
 
+  const handleTransactionIdChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+  
+    // Allow any character but limit length to 10
+    if (value.length <= 10) {
+      setTransactionId(value);
+      setError(""); // Clear error when valid
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // console.log("Order Submission Attempt:");
-    // console.log("Name:", name);
-    // console.log("Mobile:", mobile);
-    // console.log("Address:", address);
-    // console.log("Transaction ID:", transactionId);
-    // console.log("Quantity:", quantity);
-    // console.log("Total Price:", totalPrice);
-
     if (!name || !mobile || !address || !transactionId) {
       toast.error("সব প্রয়োজনীয় তথ্য পূরণ করুন!");
+      return;
+    }
+    if (product?.size && !selectedSize) {
+      setError("অনুগ্রহ করে একটি সাইজ নির্বাচন করুন।");
+      return;
+    }
+    if (transactionId.length !== 10) {
+      setError("Transaction ID must be exactly 10 characters.");
       return;
     }
 
@@ -128,7 +140,7 @@ const Checkout = ({ product }: { product: Product }) => {
   };
 
   return (
-    <div ref={checkoutRef} id="checkout-section" className="max-w-5xl mx-auto p-6 border-2 border-[#DE3163] rounded-lg my-10">
+    <div ref={checkoutRef} id="checkout-section" className={`max-w-5xl mx-auto p-6 border-2 ${product?.size===false?"border-[#DE3163]":"border-[#0099DD]"} rounded-lg my-10`}>
       <div className="mb-8">
         <h2 className="text-lg font-medium mb-4 text-black">Your Products</h2>
         <div className="flex items-center justify-between">
@@ -167,7 +179,7 @@ const Checkout = ({ product }: { product: Product }) => {
               />
             </div>
             <div>
-            {error && <p className="text-red-500 text-center mb-4">{error}</p>}
+              {error && <p className="text-red-500 text-center mb-4">{error}</p>}
               <label className="block font-bengali mb-1">
                 মোবাইল <span className="text-red-500">*</span>
               </label>
@@ -225,23 +237,27 @@ const Checkout = ({ product }: { product: Product }) => {
             </div> */}
 
             {/* Size Selection */}
-            <label className="block font-bengali mb-2 text-lg font-semibold">
-              সাইজ নির্বাচন করুন
-            </label>
-            <div className="flex gap-4">
-              {["40", "42", "44"].map((size) => (
-                <button
-                  key={size}
-                  className={`px-6 py-2 text-sm font-semibold border rounded-md ${selectedSize === size
-                    ? "bg-pink-600 text-white"
-                    : "border-pink-600 text-pink-600"
-                    }`}
-                  onClick={() => setSelectedSize(size)}
-                >
-                  {size}
-                </button>
-              ))}
-            </div>
+            {product?.size && (
+              <div>
+                <label className="block font-bengali mb-2 text-lg font-semibold">
+                  সাইজ নির্বাচন করুন
+                </label>
+                <div className="flex gap-4">
+                  {["40", "42", "44"].map((size) => (
+                    <button
+                      key={size}
+                      className={`px-6 py-2 text-sm font-semibold border rounded-md ${selectedSize === size
+                        ? `bg-[#0099DD] text-white`
+                        : "border-[#0099DD] text-[#0099DD]"
+                        }`}
+                      onClick={() => setSelectedSize(size)}
+                    >
+                      {size}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
             <div>
               <label className="block font-bengali mb-2 text-lg font-semibold">
                 ডেলিভারি চার্জ
@@ -250,8 +266,8 @@ const Checkout = ({ product }: { product: Product }) => {
                 {/* Inside Dhaka Button */}
                 <button
                   className={`px-3 py-3 text-sm font-semibold border rounded-md ${deliveryLocation === "inside-dhaka"
-                    ? "bg-pink-600 text-white"
-                    : "border-pink-600 text-pink-600"
+                    ? `bg-${product?.bgColor} text-white`
+                    : `border-${product?.bgColor} text-${product.bgColor}`
                     }`}
                   onClick={() => setDeliveryLocation("inside-dhaka")}
                 >
@@ -261,8 +277,8 @@ const Checkout = ({ product }: { product: Product }) => {
                 {/* Outside Dhaka Button */}
                 <button
                   className={`px-4 py-3 text-sm font-semibold border rounded-md ${deliveryLocation === "outside-dhaka"
-                    ? "bg-pink-600 text-white"
-                    : "border-pink-600 text-pink-600"
+                    ? `bg-${product?.bgColor} text-white`
+                    : `border-${product?.bgColor} text-${product?.bgColor}`
                     }`}
                   onClick={() => setDeliveryLocation("outside-dhaka")}
                 >
@@ -289,7 +305,7 @@ const Checkout = ({ product }: { product: Product }) => {
                     <button
                       type="button"
                       onClick={() => setQuantity((prev) => Math.max(1, prev - 1))}
-                      className="px-3 py-1 border rounded-l bg-gray-800 text-white"
+                      className={`px-3 py-1 border rounded-l bg-${product?.bgColor}  text-white`}
                     >
                       -
                     </button>
@@ -297,7 +313,7 @@ const Checkout = ({ product }: { product: Product }) => {
                     <button
                       type="button"
                       onClick={() => setQuantity((prev) => Math.min(5, prev + 1))}
-                      className="px-3 py-1 border rounded-r bg-gray-800 text-white"
+                      className={`px-3 py-1 border rounded-r bg-${product?.bgColor}  text-white`}
                       disabled={quantity >= 5}
                       style={{ opacity: quantity >= 5 ? 0.5 : 1, cursor: quantity >= 5 ? 'not-allowed' : 'pointer' }}
                     >
@@ -326,13 +342,13 @@ const Checkout = ({ product }: { product: Product }) => {
                   type="text"
                   name="transactionId"
                   value={transactionId}
-                  onChange={(e) => setTransactionId(e.target.value)}
+                  onChange={handleTransactionIdChange}
                   required
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-transparent"
                 />
               </div>
 
-              <button className="w-full px-4 py-2 bg-[#2e7d32] hover:bg-[#1b5e20] text-white rounded-md transition-colors">
+              <button className={`w-full px-4 py-2  bg-${product?.bgColor} hover:bg-${product?.bgColor} text-white rounded-md transition-colors`}>
                 Place Order
               </button>
             </div>

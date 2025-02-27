@@ -63,6 +63,7 @@ const products = {
         productPrice: 80
       },
     ],
+    size: true,
     media: {
       type: "image",
       url: productImage.src,
@@ -74,7 +75,7 @@ const products = {
       { name: "White", imageUrl: productImage.src },
       { name: "Blue", imageUrl: productImage.src },
     ],
-    bgColor: "bg-[#8833FF]"
+    bgColor: "[#0099DD]"
   },
   package2: {
     id: 2, 
@@ -131,6 +132,7 @@ const products = {
         productPrice: 80
       },
     ],
+    size: false,
     media: {
       type: "image",
       url: productImg2.src,
@@ -142,14 +144,14 @@ const products = {
       { name: "White", imageUrl: productImage.src },
       { name: "Blue", imageUrl: productImage.src },
     ],
-    bgColor: "bg-[#d82ca5]"
+    bgColor: "[#DE3163] "
   }
 };
 
 
 export default function Home() {
   return (
-    <main className="bg-orange-50">
+    <main className="bg-orange-50 overflow-x-hidden">
       <Tab products={products}/>
       {/* <HomePage product={product}/> */}
       {/* checkout */}

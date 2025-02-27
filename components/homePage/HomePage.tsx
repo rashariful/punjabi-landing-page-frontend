@@ -75,7 +75,7 @@ const HomePage = ({ product }: { product: Product }) => {
             </div>
             <div className="">
                 {/* Main Banner */}
-                <div className={`${product.bgColor} text-white text-center`}>
+                <div className={`bg-${product.bgColor} text-white text-center`}>
                     {/* Regular Price */}
                     <div className="text-[28px] font-medium leading-tight pt-4">
                         রেগুলার প্রাইস <span className="text-[#FFE600]">{product.totalPrice}</span> টাকা
@@ -97,7 +97,7 @@ const HomePage = ({ product }: { product: Product }) => {
 
                 {/* Order Button */}
                 <div className="flex justify-center mt-10 mb-5">
-                    <button onClick={handleOrderClick} className="bg-green-600 hover:bg-green-600/80 animate-bounce text-white px-8 py-2.5 rounded-md flex items-center gap-2 text-xl">
+                    <button onClick={handleOrderClick} className={`bg-${product.bgColor} animate-bounce text-white px-8 py-2.5 rounded-md flex items-center gap-2 text-xl`}>
                         <ShoppingCart className="w-6 h-6" />
                         অর্ডার করুন
                     </button>
@@ -141,7 +141,7 @@ const HomePage = ({ product }: { product: Product }) => {
                 </div>
 
                 <div className="flex justify-center my-10">
-                    <button onClick={handleOrderClick} className="bg-green-600 hover:bg-green-600/80 animate-bounce text-white px-8 py-2.5 rounded-md flex items-center gap-2 text-xl">
+                    <button onClick={handleOrderClick} className={`bg-${product.bgColor} animate-bounce text-white px-8 py-2.5 rounded-md flex items-center gap-2 text-xl `}>
                         <ShoppingCart className="w-6 h-6" />
                         অর্ডার করুন
                     </button>
@@ -163,10 +163,10 @@ const HomePage = ({ product }: { product: Product }) => {
                                 </div>
                             ))}
                         </div> */}
-                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 max-w-5xl mx-auto">
+                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 md:gap-8 max-w-5xl mx-auto">
                             {product?.details?.map((product, index) => (
                                 <div key={index} className="flex flex-col items-center">
-                                    <div className="w-56 h-56 relative mb-2 !rounded-xl">
+                                    <div className="w-52 h-52 md:w-56 md:h-56 relative mb-2 !rounded-xl">
                                         <Image
                                             src={product.productImage || "/placeholder.svg"}
                                             alt={product.productName}
@@ -183,15 +183,15 @@ const HomePage = ({ product }: { product: Product }) => {
                         </div>
                         <div className="flex justify-center my-10">
                             <div className="text-center">
-                                <div className="text-xl font-semibold pt-4">
+                                <div className="text-xl font-semibold pt-4 text-black">
                                     রেগুলার প্রাইস <span className="text-purple-700">{product.totalPrice}</span> টাকা
                                 </div>
 
                                 {/* Offer Price */}
-                                <div className="text-xl font-semibold mt-2">
+                                <div className="text-xl font-semibold mt-2 text-black">
                                     অফার প্রাইস মাত্র <span className="text-purple-700 underline decoration-purple-700">{product?.offerPrice}</span> টাকা
                                 </div>
-                                <button onClick={handleOrderClick} className="bg-green-600 hover:bg-green-600/80 animate-bounce text-white px-8 py-2.5 rounded-md flex items-center gap-2 text-xl mt-10 ml-5">
+                                <button onClick={handleOrderClick} className={`bg-${product.bgColor} animate-bounce text-white px-8 py-2.5 rounded-md flex items-center gap-2 text-xl mt-10 ml-5`}>
                                     <ShoppingCart className="w-6 h-6" />
                                     অর্ডার করুন
                                 </button>
@@ -253,19 +253,16 @@ const HomePage = ({ product }: { product: Product }) => {
                                     ৫. এটি আপনার অর্ডার কনফার্মেশনে ব্যবহার করুন।
                                 </p>
                             </div>
-                            <button
-                                onClick={handleOrderClick}
-                                className="mt-10 bg-green-600 hover:bg-green-600/80 animate-bounce text-white px-8 py-2.5 rounded-md flex items-center gap-2 text-xl "
-                            >
-                                <ShoppingCart className="w-6 h-6" />
-                                অর্ডার করুন
-                            </button>
+                            <button onClick={handleOrderClick} className={`bg-${product.bgColor} animate-bounce text-white px-8 py-2.5 rounded-md flex items-center gap-2 text-xl mt-10`}>
+                                    <ShoppingCart className="w-6 h-6" />
+                                    অর্ডার করুন
+                                </button>
                         </div>
                     </div>
                 </div>
 
                 <ReviewSection />
-                <WhatsAppChatButton/>
+                <WhatsAppChatButton />
             </div>
         </main>
     )

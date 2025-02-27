@@ -138,7 +138,7 @@
 // //                   </td>
 // //                   <td className="p-3 text-right">{order.quantity}</td>
 // //                   <td className="p-3 text-right">${order.total.toFixed(2)}</td>
-                 
+
 // //                 </tr>
 // //               </>
 // //             ))}
@@ -312,7 +312,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Search } from "lucide-react";
+import { ChevronLeft, ChevronRight, Search } from "lucide-react";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
@@ -324,6 +324,7 @@ type Order = {
   status: "pending" | "processing" | "completed" | "cancelled";
   quantity: number;
   total: number;
+  size: string;
   createdAt: string;
 };
 
@@ -346,6 +347,8 @@ export default function OrderTable() {
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const ordersPerPage = 10;
   const router = useRouter();
 
   useEffect(() => {
@@ -398,7 +401,7 @@ export default function OrderTable() {
       }
 
       setOrders((prevOrders) =>
-        prevOrders.map((order) => (order._id === orderId ? { ...order, status: newStatus } : order))
+        prevOrders.map((order) => (order?._id === orderId ? { ...order, status: newStatus } : order))
       );
     } catch (error) {
       console.error("Error updating status:", error);
@@ -407,10 +410,12 @@ export default function OrderTable() {
   };
 
   const handleLogout = () => {
-        localStorage.removeItem("token");
-        router.push("/login");
-      };
-
+    localStorage.removeItem("token");
+    router.push("/login");
+  };
+  const indexOfLastOrder = currentPage * ordersPerPage;
+  const indexOfFirstOrder = indexOfLastOrder - ordersPerPage;
+  const currentOrders = orders.slice(indexOfFirstOrder, indexOfLastOrder);
   return (
     <div className="w-full text-black">
       <div className="mb-6 flex flex-col sm:flex-row justify-between items-center">
@@ -424,45 +429,75 @@ export default function OrderTable() {
         <p className="text-center text-black">Loading orders...</p>
       ) : error ? (
         <p className="text-center text-red-500">{error}</p>
-      ) : (
-        <div className="overflow-x-auto text-black">
-          <table className="w-full border-collapse">
-            <thead>
-              <tr className="bg-gray-100 text-black">
-                <th className="p-3 text-left">Transaction ID</th>
-                <th className="p-3 text-left">Customer</th>
-                <th className="p-3 text-left">Mobile No</th>
-                <th className="p-3 text-left">Status</th>
-                <th className="p-3 text-right">Quantity</th>
-                <th className="p-3 text-right">Total Price</th>
-              </tr>
-            </thead>
-            <tbody>
-              {orders.map((order) => (
-                <tr key={order._id} className="border-b text-black">
-                  <td className="p-3 font-medium">{order.transactionId}</td>
-                  <td className="p-3">{order.name}</td>
-                  <td className="p-3">{order.contactNo}</td>
-                  <td className="p-3">
-                    <select
-                      value={order.status}
-                      onChange={(e) => handleStatusChange(order._id, e.target.value as Order["status"])}
-                      className={`px-2 py-1 text-xs font-semibold rounded-md ${getStatusColor(order.status)}`}
-                    >
-                      <option value="pending">Pending</option>
-                      <option value="processing">Processing</option>
-                      <option value="completed">Completed</option>
-                      {/* <option value="cancelled">Cancelled</option> */}
-                    </select>
-                  </td>
-                  <td className="p-3 text-right">{order.quantity}</td>
-                  <td className="p-3 text-right">${order.total.toFixed(2)}</td>
+      ) : orders.length === 0 ? (
+        <p className="text-center text-pink-600">No orders found.</p>
+      )
+        : (
+          <div className="overflow-x-auto text-black">
+            <table className="w-full border-collapse">
+              <thead>
+                <tr className="bg-gray-100 text-black">
+                  <th className="p-3 text-left">Order</th>
+                  <th className="p-3 text-left">Transaction ID</th>
+                  <th className="p-3 text-left">Customer</th>
+                  <th className="p-3 text-left">Mobile No</th>
+                  <th className="p-3 text-left">Size</th>
+                  <th className="p-3 text-left">Status</th>
+                  <th className="p-3 text-right">Quantity</th>
+                  <th className="p-3 text-right">Total Price</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      )}
+              </thead>
+              <tbody>
+                {currentOrders?.map((order, index) => (
+                  <tr key={order?._id} className="border-b text-black">
+                    <td className="p-3 font-medium">{indexOfFirstOrder + index + 1}</td>
+                    <td className="p-3 font-medium">{order?.transactionId}</td>
+                    <td className="p-3">{order?.name}</td>
+                    <td className="p-3">{order?.contactNo}</td>
+                    <td className="p-3">{order?.size}</td>
+                    <td className="p-3">
+                      <select
+                        value={order?.status}
+                        onChange={(e) => handleStatusChange(order?._id, e.target.value as Order["status"])}
+                        className={`px-2 py-1 text-xs font-semibold rounded-md ${getStatusColor(order?.status)}`}
+                      >
+                        <option value="pending">Pending</option>
+                        <option value="processing">Processing</option>
+                        <option value="completed">Completed</option>
+                        {/* <option value="cancelled">Cancelled</option> */}
+                      </select>
+                    </td>
+                    <td className="p-3 text-right">{order?.quantity}</td>
+                    <td className="p-3 text-right">${order?.total.toFixed(2)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+
+      {/* Pagination */}
+      <div className="flex justify-center items-center space-x-4 mt-8">
+      <button
+        onClick={() => setCurrentPage((prev) => prev - 1)}
+        disabled={currentPage === 1}
+        className="flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 transition duration-150 ease-in-out disabled:opacity-50 disabled:cursor-not-allowed"
+      >
+        <ChevronLeft className="h-5 w-5 mr-1" />
+        Previous
+      </button>
+      <div className="text-sm text-gray-700">
+        Page {currentPage}
+      </div>
+      <button
+        onClick={() => setCurrentPage((prev) => prev + 1)}
+        disabled={indexOfLastOrder >= orders.length}
+        className="flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 transition duration-150 ease-in-out disabled:opacity-50 disabled:cursor-not-allowed"
+      >
+        Next
+        <ChevronRight className="h-5 w-5 ml-1" />
+      </button>
+    </div>
     </div>
   );
 }
