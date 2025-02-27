@@ -128,7 +128,7 @@ const Checkout = ({ product }: { product: Product }) => {
   };
 
   return (
-    <div ref={checkoutRef} id="checkout-section" className="max-w-5xl mx-auto p-6 border-2 border-black rounded-lg my-10">
+    <div ref={checkoutRef} id="checkout-section" className="max-w-5xl mx-auto p-6 border-2 border-[#DE3163] rounded-lg my-10">
       <div className="mb-8">
         <h2 className="text-lg font-medium mb-4 text-black">Your Products</h2>
         <div className="flex items-center justify-between">

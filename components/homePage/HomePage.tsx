@@ -7,6 +7,7 @@ import { ShoppingCart } from "lucide-react"
 import bikasPayment from "@/public/images/payment-scan.jpg"
 import CountdownTimer from "../shared/CountdownTimer"
 import ReviewSection from "../Review"
+import WhatsAppChatButton from "./WhatsAppChatButton"
 
 interface ProductDetail {
     productImage: string;
@@ -264,6 +265,7 @@ const HomePage = ({ product }: { product: Product }) => {
                 </div>
 
                 <ReviewSection />
+                <WhatsAppChatButton/>
             </div>
         </main>
     )

@@ -406,6 +406,11 @@ export default function OrderTable() {
     }
   };
 
+  const handleLogout = () => {
+        localStorage.removeItem("token");
+        router.push("/login");
+      };
+
   return (
     <div className="w-full text-black">
       <div className="mb-6 flex flex-col sm:flex-row justify-between items-center">
@@ -413,6 +418,7 @@ export default function OrderTable() {
           <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
           <input type="text" className="w-full pl-10 pr-4 py-2 border border-gray-500 rounded-md" placeholder="Search orders..." />
         </div>
+        <button onClick={handleLogout} className="bg-red-600 px-5 py-2 text-white">Logout</button>
       </div>
       {loading ? (
         <p className="text-center text-black">Loading orders...</p>

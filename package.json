@@ -17,6 +17,7 @@
     "react-gtm-module": "^2.0.11",
     "react-hot-toast": "^2.5.2",
     "react-icons": "^5.5.0",
+    "react-whatsapp-chat-widget": "^1.1.6",
     "swiper": "^11.2.4"
   },
   "devDependencies": {

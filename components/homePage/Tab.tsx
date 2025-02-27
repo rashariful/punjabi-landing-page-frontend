@@ -29,7 +29,7 @@ interface Product {
   };
 
 const Tab = ({ products }: { products: Products }) => {
-    const tabs = ["প্রিমিয়াম পাঞ্জাবি প্যাকেজ", "প্রিমিয়াম লং খিমার প্যাকেজ"];
+    const tabs = ["প্রিমিয়াম লং খিমার প্যাকেজ", "প্রিমিয়াম পাঞ্জাবি প্যাকেজ"];
     const [activeTab, setActiveTab] = useState("প্রিমিয়াম পাঞ্জাবি প্যাকেজ")
     return (
         <div className="max-w-5xl mx-auto">
@@ -40,7 +40,7 @@ const Tab = ({ products }: { products: Products }) => {
                             <button
                                 key={tab}
                                 onClick={() => setActiveTab(tab)}
-                                className={`p-5 text-lg font-semibold relative text-white rounded ${tab==="প্রিমিয়াম পাঞ্জাবি প্যাকেজ" ?`${products?.package1?.bgColor}`: `${products?.package2?.bgColor}`} ${activeTab === tab ? "" : "bg-opacity-60"}`}
+                                className={`p-5 text-lg font-semibold relative text-white rounded ${tab==="প্রিমিয়াম পাঞ্জাবি প্যাকেজ" ?`bg-[#0099DD]`: ` bg-[#DE3163]`} ${activeTab === tab ? "" : "bg-opacity-60"}`}
                             >
                                 {tab}
                             </button>
@@ -48,16 +48,17 @@ const Tab = ({ products }: { products: Products }) => {
                     </nav>
                 </div>
             </div>
-            {activeTab === "প্রিমিয়াম পাঞ্জাবি প্যাকেজ" && (
-                <div className="py-8">
-                    <HomePage product={products.package1} />
-                    <Checkout product={products.package1} />
-                </div>
-            )}
+            
             {activeTab === "প্রিমিয়াম লং খিমার প্যাকেজ" && (
                 <div className="py-8">
                     <HomePage product={products.package2}  />
                     <Checkout product={products.package2} />
+                </div>
+            )}
+            {activeTab === "প্রিমিয়াম পাঞ্জাবি প্যাকেজ" && (
+                <div className="py-8">
+                    <HomePage product={products.package1} />
+                    <Checkout product={products.package1} />
                 </div>
             )}
         </div>
