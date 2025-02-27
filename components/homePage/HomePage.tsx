@@ -4,7 +4,6 @@
 import Image from "next/image"
 import { ShoppingCart } from "lucide-react"
 // import OrderModal from "../shared/OrderModal"
-import bikasPayment from "@/public/images/payment-scan.jpg"
 import CountdownTimer from "../shared/CountdownTimer"
 import ReviewSection from "../Review"
 import WhatsAppChatButton from "./WhatsAppChatButton"
@@ -210,56 +209,7 @@ const HomePage = ({ product }: { product: Product }) => {
                     ></iframe>
                 </div>
 
-                <div className="flex flex-col md:flex-row justify-between items-center mt-6">
-                    <div>
-                        <h3 className="text-xl font-semibold mb-2 text-black">বিকাশ দিয়ে পেমেন্ট করুন</h3>
-                        <Image
-                            src={bikasPayment}
-                            alt="Bikas-payment method"
-                            width={300}
-                            height={300}
-                        ></Image>
-                    </div>
-
-                    <div className="flex justify-end">
-                        <div>
-                            {/* Bikas transaction step instructions */}
-                            <div className="bg-gray-100 rounded-md">
-                                <h4 className="font-semibold text-xl text-black mb-2">
-                                    বিকাশ থেকে ট্রানজেকশন আইডি পাওয়ার স্টেপ:
-                                </h4>
-                                <ul className="list-disc pl-5 text-lg text-gray-700">
-                                    {/* <li>বিকাশ অ্যাপ ওপেন করুন</li>
-                                    <li>ট্রানজেকশন হিস্ট্রি দেখুন</li>
-                                    <li>ট্রানজেকশন ডিটেইলস সিলেক্ট করুন</li>
-                                    <li>ট্রানজেকশন আইডি দেখুন</li>
-                                     */}
-                                    <li>এসএমএসে ট্রানজেকশন আইডি দেখুন</li>
-                                    <li>ট্রানজেকশন আইডি কপি করুন</li>
-                                    <li>এটি আপনার অর্ডার কনফার্মেশনে ব্যবহার করুন।</li>
-                                </ul>
-                                <h4 className="font-semibold text-xl text-black mt-4">
-                                    অ্যাপে ট্রানজেকশন আইডি দেখার পদ্ধতি:
-                                </h4>
-                                <p className="text-lg text-gray-700">
-                                    ১. বিকাশ অ্যাপ খুলুন।
-                                    <br />
-                                    ২. &quot;Transaction History&quot; অপশনে যান।
-                                    <br />
-                                    ৩. আপনার পেমেন্ট ট্রানজেকশন সিলেক্ট করুন।
-                                    <br />
-                                    ৪. &quot;Transaction ID&quot; অথবা &quot;TXN ID&quot; খুঁজুন, যা আপনি ট্রানজেকশন <br /> ডিটেইলসে দেখতে পাবেন।
-                                    <br />
-                                    ৫. এটি আপনার অর্ডার কনফার্মেশনে ব্যবহার করুন।
-                                </p>
-                            </div>
-                            <button onClick={handleOrderClick} className={`bg-${product.bgColor} animate-bounce text-white px-8 py-2.5 rounded-md flex items-center gap-2 text-xl mt-10`}>
-                                    <ShoppingCart className="w-6 h-6" />
-                                    অর্ডার করুন
-                                </button>
-                        </div>
-                    </div>
-                </div>
+                {/*  */}
 
                 <ReviewSection />
                 <WhatsAppChatButton />
