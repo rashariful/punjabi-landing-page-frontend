@@ -88,9 +88,6 @@ export default function Login() {
 
         <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">Admin Login</h2>
 
-        {/* Error Message */}
-        {error && <p className="text-red-500 text-center mb-4">{error}</p>}
-
         <form onSubmit={handleSubmit}>
           {/* Email Input */}
           <div className="mb-4">
@@ -107,6 +104,7 @@ export default function Login() {
               placeholder="Enter your Contact No"
               required
             />
+            {error && <p className="text-red-500 text-center ">{error}</p>}
           </div>
 
           {/* Password Input */}
