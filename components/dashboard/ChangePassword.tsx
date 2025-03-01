@@ -45,7 +45,6 @@ useEffect(() => {
           oldPassword,
           newPassword,
         }),
-        mode: "cors",
       })
 
       const data = await response.json()

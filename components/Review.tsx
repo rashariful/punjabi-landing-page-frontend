@@ -27,7 +27,7 @@ const reviews = [
 const ReviewSection = () => {
   return (
     <section className="mt-12 max-w-5xl mx-auto">
-      <h2 className="text-2xl font-bold mb-4 text-black">গ্রাহক রিভিউ</h2>
+      <h2 className="text-3xl font-bold mb-5 text-black text-center">গ্রাহক রিভিউ</h2>
       <Swiper
       spaceBetween={30} // Space between slides
       slidesPerView={1} // Show one review at a time

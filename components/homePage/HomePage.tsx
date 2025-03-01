@@ -136,7 +136,7 @@ const HomePage = ({ product }: { product: Product }) => {
                 <div className="flex justify-between items-center">
                     <h1 className="text-xl md:text-3xl font-bold mb-4 text-black">{product.name}</h1>
                     {/* <p className="text-2xl font-semibold mb-4">${product.price.toFixed(2)}</p> */}
-                    <p className="text-2xl font-semibold mb-4">${priceInBengali}</p>
+                    <p className="text-2xl font-semibold mb-4 text-black">${priceInBengali}</p>
                 </div>
 
                 <div className="flex justify-center my-10">
@@ -148,7 +148,7 @@ const HomePage = ({ product }: { product: Product }) => {
 
                 <div className="flex justify-center">
                     <div className="">
-                        <h2 className="text-3xl font-bold mb-5 text-black">রমজান স্পেশাল {product.title} অন্তর্ভুক্ত:</h2>
+                        <h2 className="text-center text-3xl font-bold mb-5 text-black">রমজান স্পেশাল {product.title} অন্তর্ভুক্ত:</h2>
                         {/* <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                             {product?.details?.map((product, index) => (
                                 <div key={index} className="flex items-center text-3xl text-black">
@@ -165,7 +165,7 @@ const HomePage = ({ product }: { product: Product }) => {
                         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 md:gap-8 max-w-5xl mx-auto">
                             {product?.details?.map((product, index) => (
                                 <div key={index} className="flex flex-col items-center">
-                                    <div className="w-52 h-52 md:w-56 md:h-56 relative mb-2 !rounded-xl">
+                                    <div className="w-48 h-48 md:w-56 md:h-56 relative mb-2 !rounded-xl">
                                         <Image
                                             src={product.productImage || "/placeholder.svg"}
                                             alt={product.productName}
@@ -182,18 +182,20 @@ const HomePage = ({ product }: { product: Product }) => {
                         </div>
                         <div className="flex justify-center my-10">
                             <div className="text-center">
-                                <div className="text-xl font-semibold pt-4 text-black">
+                                <div className="text-2xl md:text-3xl font-semibold pt-4 text-black">
                                     রেগুলার প্রাইস <span className="text-purple-700">{product.totalPrice}</span> টাকা
                                 </div>
 
                                 {/* Offer Price */}
-                                <div className="text-xl font-semibold mt-2 text-black">
+                                <div className="text-2xl md:text-3xl font-semibold mt-2 text-black">
                                     অফার প্রাইস মাত্র <span className="text-purple-700 underline decoration-purple-700">{product?.offerPrice}</span> টাকা
                                 </div>
-                                <button onClick={handleOrderClick} className={`bg-${product.bgColor} animate-bounce text-white px-8 py-2.5 rounded-md flex items-center gap-2 text-xl mt-10 ml-5`}>
+                                <div className="flex justify-center">
+                                <button onClick={handleOrderClick} className={`bg-${product.bgColor} animate-bounce text-white px-8 py-2.5 rounded-md flex items-center gap-2 text-xl mt-10 `}>
                                     <ShoppingCart className="w-6 h-6" />
                                     অর্ডার করুন
                                 </button>
+                                </div>
                             </div>
                         </div>
                     </div>

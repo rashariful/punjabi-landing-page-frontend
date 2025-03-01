@@ -6,6 +6,7 @@ import { ChevronLeft, ChevronRight, Search } from "lucide-react";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import ChangePassword from "./ChangePassword";
+import InvoiceTemplate from "./Invoice";
 
 type Order = {
   _id: string;
@@ -44,42 +45,11 @@ export default function OrderTable() {
   const ordersPerPage = 10;
   const router = useRouter();
   const [isModalVisible, setIsModalVisible] = useState(false);
-
+  const [isInvoiceModalVisible, setIsInvoiceModalVisible] = useState(false);
+  const showInvoiceModal = () => setIsInvoiceModalVisible(true);
+  const closeInvoiceModal = () => setIsInvoiceModalVisible(false);
   const showModal = () => setIsModalVisible(true);
   const closeModal = () => setIsModalVisible(false);
-  // const [token, setToken] = useState<string | null>(null);
-
-  // useEffect(() => {
-  //   const token = localStorage.getItem("token");
-  //   if (!token) {
-  //     router.push("/login");
-  //   }
-
-  //   const fetchOrders = async () => {
-  //     try {
-  //       const response = await fetch(`${process.env.NEXT_PUBLIC_REACT_APP_ROOT}/orders`, {
-  //         headers: {
-  //           Authorization: `Bearer ${token}`,
-  //           "Content-Type": "application/json",
-  //         },
-  //       });
-
-  //       if (!response.ok) {
-  //         throw new Error("Failed to fetch orders");
-  //       }
-
-  //       const data = await response.json();
-  //       setOrders(data.data);
-  //     } catch (error) {
-  //       setError("Failed to fetch orders. Please try again.");
-  //       console.log(error);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
-
-  //   fetchOrders();
-  // }, [router]);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -118,7 +88,7 @@ export default function OrderTable() {
     };
 
     fetchOrders();
-  }, [router, searchTerm]); // ✅ Add searchTerm as a dependency
+  }, [router, searchTerm]); 
 
   const handleStatusChange = async (orderId: string, newStatus: Order["status"]) => {
     const token = localStorage.getItem("token");
@@ -145,7 +115,7 @@ export default function OrderTable() {
       toast("Failed to update order status. Try again.");
     }
   };
-
+console.log(orders, 'orders');
   const handleLogout = () => {
     localStorage.removeItem("token");
     router.push("/login");
@@ -191,9 +161,10 @@ export default function OrderTable() {
                   <th className="p-3 text-left">Package Name</th>
                   <th className="p-3 text-left">Mobile No</th>
                   <th className="p-3 text-left">Size</th>
-                  <th className="p-3 text-left">Status</th>
+                  <th className="p-3 text-left">Delivery Status</th>
                   <th className="p-3 text-right">Quantity</th>
                   <th className="p-3 text-right">Total Price</th>
+                  <th className="p-3 text-right">Invoice</th>
                 </tr>
               </thead>
               <tbody>
@@ -219,6 +190,7 @@ export default function OrderTable() {
                     </td>
                     <td className="p-3 text-right">{order?.quantity}</td>
                     <td className="p-3 text-right">${order?.total.toFixed(2)}</td>
+                    <td className="p-3 text-right"><button onClick={showInvoiceModal} className="bg-pink-500 text-white p-2 rounded">Invoice</button></td>
                   </tr>
                 ))}
               </tbody>
@@ -249,6 +221,7 @@ export default function OrderTable() {
         </button>
       </div>
       <ChangePassword visible={isModalVisible} onClose={closeModal}  />
+      <InvoiceTemplate visible={isInvoiceModalVisible} onClose={closeInvoiceModal}/>
     </div>
   );
 }

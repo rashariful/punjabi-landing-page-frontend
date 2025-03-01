@@ -440,7 +440,7 @@ const Checkout = ({ product }: { product: Product }) => {
 
             <div className="bg-gray-50 rounded-lg p-6 shadow-inner">
               <div className="mb-4 flex items-center justify-between">
-                <span className="font-medium">Product</span>
+                <span className="font-medium text-black">Product</span>
                 <div className="flex items-center gap-2">
                   <button
                     onClick={() => setQuantity((prev) => Math.max(1, prev - 1))}
@@ -448,7 +448,7 @@ const Checkout = ({ product }: { product: Product }) => {
                   >
                     <Minus className="h-4 w-4" />
                   </button>
-                  <span className="min-w-[2rem] text-center font-medium">{quantity}</span>
+                  <span className="min-w-[2rem] text-center font-medium text-black">{quantity}</span>
                   <button
                     onClick={() => setQuantity((prev) => Math.min(5, prev + 1))}
                     className={`rounded-full bg-${product?.bgColor} p-1 text-white transition-colors`}
@@ -459,12 +459,12 @@ const Checkout = ({ product }: { product: Product }) => {
                 </div>
               </div>
 
-              <div className="mb-4 flex justify-between border-b border-gray-200 pb-4">
+              <div className="mb-4 flex justify-between border-b border-gray-200 pb-4 text-black">
                 <span>Delivery Charge</span>
                 <span>৳ {deliveryCharge}</span>
               </div>
 
-              <div className="mb-6 flex justify-between text-lg font-semibold">
+              <div className="mb-6 flex justify-between text-lg font-semibold text-black">
                 <span>Total</span>
                 <span>৳ {totalPrice}.00</span>
               </div>

@@ -104,7 +104,7 @@ export default function Login() {
               placeholder="Enter your Contact No"
               required
             />
-            {error && <p className="text-red-500 text-center ">{error}</p>}
+            {error && <p className="text-red-500">{error}</p>}
           </div>
 
           {/* Password Input */}
