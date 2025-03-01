@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight, Search } from "lucide-react";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import ChangePassword from "./ChangePassword";
 
 type Order = {
   _id: string;
@@ -42,6 +43,11 @@ export default function OrderTable() {
   const [currentPage, setCurrentPage] = useState(1);
   const ordersPerPage = 10;
   const router = useRouter();
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const showModal = () => setIsModalVisible(true);
+  const closeModal = () => setIsModalVisible(false);
+  // const [token, setToken] = useState<string | null>(null);
 
   // useEffect(() => {
   //   const token = localStorage.getItem("token");
@@ -80,27 +86,27 @@ export default function OrderTable() {
     if (!token) {
       router.push("/login");
     }
-  
+
     const fetchOrders = async () => {
       try {
         setLoading(true);
-  
+
         let url = `${process.env.NEXT_PUBLIC_REACT_APP_ROOT}/orders`;
         if (searchTerm) {
           url += `?searchTerm=${encodeURIComponent(searchTerm)}`;
         }
-  
+
         const response = await fetch(url, {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `${token}`,
             "Content-Type": "application/json",
           },
         });
-  
+
         if (!response.ok) {
           throw new Error("Failed to fetch orders");
         }
-  
+
         const data = await response.json();
         setOrders(data.data);
       } catch (error) {
@@ -110,10 +116,10 @@ export default function OrderTable() {
         setLoading(false);
       }
     };
-  
+
     fetchOrders();
   }, [router, searchTerm]); // ✅ Add searchTerm as a dependency
-  
+
   const handleStatusChange = async (orderId: string, newStatus: Order["status"]) => {
     const token = localStorage.getItem("token");
     console.log(token, "tok");
@@ -121,7 +127,7 @@ export default function OrderTable() {
       const response = await fetch(`${process.env.NEXT_PUBLIC_REACT_APP_ROOT}/orders/${orderId}`, {
         method: "PATCH",
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `${token}`,
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ status: newStatus }),
@@ -160,7 +166,12 @@ export default function OrderTable() {
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
-        <button onClick={handleLogout} className="bg-red-600 px-5 py-2 text-white">Logout</button>
+        <div className="flex items-center gap-5">
+          {/* <Link href="/change-password"> */}
+            <button onClick={showModal}className="text-red-600 px-5 py-2 hover:underline">Change Password</button>
+          {/* </Link> */}
+          <button onClick={handleLogout} className="bg-red-600 px-5 py-2 text-white">Logout</button>
+        </div>
       </div>
       {loading ? (
         <p className="text-center text-black">Loading orders...</p>
@@ -237,6 +248,7 @@ export default function OrderTable() {
           <ChevronRight className="h-5 w-5 ml-1" />
         </button>
       </div>
+      <ChangePassword visible={isModalVisible} onClose={closeModal}  />
     </div>
   );
 }

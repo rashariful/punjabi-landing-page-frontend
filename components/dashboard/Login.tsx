@@ -6,7 +6,7 @@ import Image from "next/image"
 import { useRouter } from "next/navigation" // For redirection
 import { Eye, EyeOff } from "lucide-react"
 import logo from "@/public/priyo-fashion-logo.svg"
-import Link from "next/link"
+// import Link from "next/link"
 
 export default function Login() {
   const [contactNo, setContactNo] = useState("")
@@ -150,16 +150,16 @@ export default function Login() {
                 Remember me
               </label>
             </div>
-            <Link href="/change-password" className="text-sm text-indigo-600 hover:text-indigo-500">
+            {/* <Link href="/change-password" className="text-sm text-indigo-600 hover:text-indigo-500">
               Forgot password?
-            </Link>
+            </Link> */}
           </div>
 
           {/* Login Button */}
           <button
             type="submit"
             className="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition duration-150 ease-in-out"
-            disabled={loading}
+            // disabled={loading}
           >
             {loading ? "Logging in..." : "Log In"}
           </button>

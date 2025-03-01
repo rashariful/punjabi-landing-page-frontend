@@ -356,13 +356,13 @@ const Checkout = ({ product }: { product: Product }) => {
 
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">তোমার নাম *</label>
+                <label className="block text-sm font-medium text-gray-700 mb-1">নাম *</label>
                 <input
                   type="text"
                   name="name"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className={`w-full rounded-md border-gray-300 shadow-sm border-none focus:ring focus:ring-${product.bgColor}  p-2 outline-none`}
+                  className={`w-full rounded-md border-gray-300 shadow-sm border focus:ring focus:ring-${product.bgColor}  p-2 outline-none`}
                   required
                 />
               </div>
@@ -374,19 +374,19 @@ const Checkout = ({ product }: { product: Product }) => {
                   name="contactNo"
                   value={mobile}
                   onChange={handleContactChange}
-                  className={`w-full rounded-md border-gray-300 shadow-sm border-none focus:ring focus:ring-${product.bgColor}  p-2 outline-none`}
+                  className={`w-full rounded-md border-gray-300 shadow-sm border focus:ring focus:ring-${product.bgColor}  p-2 outline-none`}
                   required
                 />
                 {error && <p className="text-red-500 text-center">{error}</p>}
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">ঠিকানা *</label>
+                <label className="block text-sm font-medium text-gray-700 mb-1">সম্পূর্ণ ঠিকানা *</label>
                 <textarea
                   name="address"
                   value={address}
                   onChange={(e) => setAdress(e.target.value)}
-                  className={`w-full rounded-md border-gray-300 shadow-sm border-none focus:ring focus:ring-${product.bgColor}  p-2 outline-none`}
+                  className={`w-full rounded-md border-gray-300 shadow-sm border focus:ring focus:ring-${product.bgColor}  p-2 outline-none`}
                   rows={3}
                   required
                 />
@@ -538,7 +538,7 @@ const Checkout = ({ product }: { product: Product }) => {
                       name="transactionId"
                    value={transactionId}
                    onChange={handleTransactionIdChange}
-                      className={`w-full rounded-md border-gray-300 shadow-sm border-none focus:ring focus:ring-${product.bgColor}  p-2 outline-none`}
+                      className={`w-full rounded-md border-gray-300 shadow-sm border focus:ring focus:ring-${product.bgColor}  p-2 outline-none`}
                       required
                     />
                   </div>
