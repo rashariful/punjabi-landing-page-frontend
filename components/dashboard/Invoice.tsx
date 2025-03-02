@@ -348,7 +348,7 @@ export default function InvoiceTemplate({ visible, onClose, order }: InvoiceProp
                         <table className="w-full border-collapse mt-6">
                             <thead>
                                 <tr className="border-b border-gray-200 bg-gray-100">
-                                    <th className="py-2 px-4 text-left">Product/Service</th>
+                                    <th className="py-2 px-4 text-left">Package</th>
                                     <th className="py-2 px-4 text-right">Qty</th>
                                     <th className="py-2 px-4 text-right">Size</th>
                                     <th className="py-2 px-4 text-right">Total Price</th>

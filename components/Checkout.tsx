@@ -111,11 +111,11 @@ const Checkout = ({ product }: { product: Product }) => {
       package: product.title,
       size: selectedSize,
       paymentMethod, 
-    transactionId: paymentMethod !== "cash" ? transactionId : null,
+    transactionId: paymentMethod !== "cashOnDelivery" ? transactionId : null,
       // transactionId,
     };
 
-    console.log("Sending Order Data:", orderData);
+    // console.log("Sending Order Data:", orderData);
 
     try {
       const response = await fetch(`${API_URL}/orders`, {
@@ -134,9 +134,10 @@ const Checkout = ({ product }: { product: Product }) => {
         // setTimeout(() => {
         //   window.location.href = "https://www.icchaporon.com/";
         // }, 2000);
-      } else {
-        toast.error(`অর্ডার ব্যর্থ: ${result.message || "অনুগ্রহ করে আবার চেষ্টা করুন!"}`);
-      }
+      } 
+      // else {
+      //   toast.error(`অর্ডার ব্যর্থ: ${ "অনুগ্রহ করে আবার চেষ্টা করুন!"}`);
+      // }
     } catch (error) {
       console.error("Error sending order:", error);
       toast.error("অর্ডার সম্পন্ন করতে ব্যর্থ হয়েছে!");
