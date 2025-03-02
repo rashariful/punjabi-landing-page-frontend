@@ -43,7 +43,7 @@ const Checkout = ({ product }: { product: Product }) => {
   const [selectedSize, setSelectedSize] = useState("40");
   const API_URL = process.env.NEXT_PUBLIC_REACT_APP_ROOT;
   const [error, setError] = useState<string | null>(null)
-  const [paymentMethod, setPaymentMethod] = useState("cashOnDelivery")
+  const [paymentMethod, setPaymentMethod] = useState("cash")
 
   const deliveryCharge = deliveryLocation === "inside" ? 70 : 130;
   const totalPrice = product.offerPrice * quantity + deliveryCharge;
@@ -111,11 +111,11 @@ const Checkout = ({ product }: { product: Product }) => {
       package: product.title,
       size: selectedSize,
       paymentMethod, 
-    transactionId: paymentMethod !== "cashOnDelivery" ? transactionId : null,
+    transactionId: paymentMethod !== "cash" ? transactionId : null,
       // transactionId,
     };
 
-    // console.log("Sending Order Data:", orderData);
+    console.log("Sending Order Data:", orderData);
 
     try {
       const response = await fetch(`${API_URL}/orders`, {
@@ -135,9 +135,9 @@ const Checkout = ({ product }: { product: Product }) => {
         //   window.location.href = "https://www.icchaporon.com/";
         // }, 2000);
       } 
-      // else {
-      //   toast.error(`অর্ডার ব্যর্থ: ${ "অনুগ্রহ করে আবার চেষ্টা করুন!"}`);
-      // }
+      else {
+        toast.error(`অর্ডার ব্যর্থ: ${ "অনুগ্রহ করে আবার চেষ্টা করুন!"}`);
+      }
     } catch (error) {
       console.error("Error sending order:", error);
       toast.error("অর্ডার সম্পন্ন করতে ব্যর্থ হয়েছে!");
@@ -289,8 +289,8 @@ const Checkout = ({ product }: { product: Product }) => {
                 <label className="block text-sm font-medium text-gray-700 mb-2">Payment Method</label>
                 <div className="space-y-2">
                   <button
-                    onClick={() => setPaymentMethod("cashOnDelivery")}
-                    className={`w-full rounded-md px-4 py-2 text-left transition-colors ${paymentMethod === "cashOnDelivery"
+                    onClick={() => setPaymentMethod("cash")}
+                    className={`w-full rounded-md px-4 py-2 text-left transition-colors ${paymentMethod === "cash"
                         ? `bg-${product?.bgColor} text-white`
                         : "bg-white border border-gray-300 text-gray-800 hover:bg-gray-50"
                       }`}

@@ -6,7 +6,14 @@ import productImage from "@/public/images/fMVNElIeW1jcHz4B1aIJwarv1RZt1YiNA1fVVf
 // import ReviewSection from "@/components/Review";
 import Tab from "@/components/homePage/Tab";
 import productImg2 from "@/public/images/Dark-Green-Ash-Grey-Floral-2.webp"
-
+import jaynamajProductImage from "@/public/images/jaynamaj.jpeg"
+import atorProductImage from "@/public/images/Ator.webp"
+import tosbihProductImage from "@/public/images/tosbh.jpg"
+import meswakProductImage from "@/public/images/meswak_.jpg"
+import tupiProductImage from "@/public/images/tupi.webp"
+import islamProductImage from "@/public/images/sura.jpg"
+import boxProductImage from "@/public/images/boxs.jpeg"
+import innerProductImage from "@/public/images/inner.jpg"
 const products = {
   package1: {
     id: 1,
@@ -28,37 +35,37 @@ const products = {
         productPrice: 1200
       },
       { 
-        productImage: productImage.src,
+        productImage: jaynamajProductImage.src,
         productName: "জায়নামাজ",
         productPrice: 550
       },
       { 
-        productImage: productImage.src,
+        productImage: atorProductImage.src,
         productName: "আত্তর ",
         productPrice: 180
       },
       { 
-        productImage: productImage.src,
+        productImage: tosbihProductImage.src,
         productName: "তসবিহ",
         productPrice: 110
       },
       { 
-        productImage: productImage.src,
+        productImage: meswakProductImage.src,
         productName: "মেসওয়াক",
         productPrice: 25
       },
       { 
-        productImage: productImage.src,
+        productImage: tupiProductImage.src,
         productName: "টুপি",
         productPrice: 30
       },
       { 
-        productImage: productImage.src,
+        productImage: islamProductImage.src,
         productName: "ইসলামিক বই",
         productPrice: 60
       },
       { 
-        productImage: productImage.src,
+        productImage: boxProductImage.src,
         productName: "বক্স",
         productPrice: 80
       },
@@ -92,42 +99,42 @@ const products = {
       // "জায়নামাজ – নরম ও টেকসই নামাজের মাদুর",
       // "খিমার – মহিলাদের জন্য শালীন ও স্টাইলিশ হিজাব"
       { 
-        productImage: productImage.src,
+        productImage: productImg2.src,
         productName: "লং খিমার",
         productPrice: 750
       },
       { 
-        productImage: productImage.src,
+        productImage: jaynamajProductImage.src,
         productName: "জায়নামাজ",
         productPrice: 750
       },
       { 
-        productImage: productImage.src,
+        productImage: atorProductImage.src,
         productName: "আত্তর",
         productPrice: 180
       },
       { 
-        productImage: productImage.src,
+        productImage: tosbihProductImage.src,
         productName: "তসবিহ",
         productPrice: 110
       },
       { 
-        productImage: productImage.src,
+        productImage: meswakProductImage.src,
         productName: "মেসওয়াক",
         productPrice: 25
       },
       { 
-        productImage: productImage.src,
+        productImage: innerProductImage.src,
         productName: "ইনার ক্যাপ",
         productPrice: 60
       },
       { 
-        productImage: productImage.src,
+        productImage: islamProductImage.src,
         productName: "ইসলামিক বই",
         productPrice: 60
       },
       { 
-        productImage: productImage.src,
+        productImage: boxProductImage.src,
         productName: "বক্স",
         productPrice: 80
       },
