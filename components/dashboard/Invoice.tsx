@@ -228,7 +228,7 @@
 
 
 "use client"
-
+import moment from "moment";
 import { useEffect, useRef } from "react"
 import { jsPDF } from "jspdf"
 import html2canvas from "html2canvas"
@@ -245,6 +245,7 @@ interface Order {
     paymentMethod: string;
     // dueDate: string;
     size: string;
+    createdAt: string;
 }
 
 interface InvoiceProps {
@@ -309,91 +310,94 @@ export default function InvoiceTemplate({ visible, onClose, order }: InvoiceProp
     return (
         <div onClick={onClose} className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
             <div className="max-w-4xl mx-auto relative bg-white rounded-lg shadow-lg overflow-y-auto" onClick={(e) => e.stopPropagation()}>
-                {/* Header */}
-                <div className="flex justify-between bg-pink-600 p-4">
-                    <div>
-                        <h1 className="text-2xl font-bold text-white">Prio Fashion Bd</h1>
-                        <p className="text-sm text-white">Company No. 01623766660</p>
-                        <p className="text-sm text-white">123 Business Street, City</p>
-                    </div>
-                    <div className="text-right">
-                        <h2 className="text-2xl font-bold text-blue-600">INVOICE</h2>
-                        {/* <p className="text-gray-500">#{order.orderId}</p> */}
-                        <p className="text-sm text-white">{currentDate}, {currentTime}</p>
-                    </div>
-                </div>
-                <div ref={invoiceRef} className="p-6">
-                    <hr className="border-t border-gray-200 my-4" />
-
-                    {/* Customer Info */}
-                    <div className="grid grid-cols-2 gap-6">
+                <div ref={invoiceRef}>
+                    {/* Header */}
+                    <div className="flex justify-between bg-pink-600 p-4">
                         <div>
-                            <h3 className="font-medium">Bill To:</h3>
-                            <p className="text-sm">
-                                <strong>Customer: {order?.name}</strong><br />
-                                Address: {order?.address}<br />
-                            </p>
+                            <h1 className="text-2xl font-bold text-white">Prio Fashion Bd</h1>
+                            <p className="text-sm text-white">Company No. 01623766660</p>
+                            <p className="text-sm text-white">123 Business Street, City</p>
                         </div>
                         <div className="text-right">
-                            <h3 className="font-medium">Payment Details:</h3>
-                            <p className="text-sm">Method: {order?.paymentMethod}</p>
-                            {/* <p className="text-sm">Due Date: {order.dueDate}</p> */}
+                            <h2 className="text-2xl font-bold text-blue-600">INVOICE</h2>
+                            {/* <p className="text-gray-500">#{order.orderId}</p> */}
+                            <p className="text-sm text-white">{currentDate}, {currentTime}</p>
                         </div>
                     </div>
+                    <div className="p-6">
+                        <hr className="border-t border-gray-200 my-4" />
 
-                    {/* Invoice Items */}
-                    <table className="w-full border-collapse mt-6">
-                        <thead>
-                            <tr className="border-b border-gray-200 bg-gray-100">
-                                <th className="py-2 px-4 text-left">Product/Service</th>
-                                <th className="py-2 px-4 text-right">Qty</th>
-                                <th className="py-2 px-4 text-right">Size</th>
-                                <th className="py-2 px-4 text-right">Total Price</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {/* {order.items.map((item, index) => ( */}
-                            <tr className="border-b border-gray-200">
-                                <td className="py-2 px-4">{order?.package}</td>
-                                <td className="py-2 px-4 text-right">{order?.quantity}</td>
-                                <td className="py-2 px-4 text-right">{order?.size}</td>
-                                <td className="py-2 px-4 text-right">${(order?.total).toFixed(2)}</td>
-                            </tr>
-                            {/* ))} */}
-                        </tbody>
-                        <tfoot>
-                            {/* <tr className="border-b border-gray-200">
+                        {/* Customer Info */}
+                        <div className="grid grid-cols-2 gap-6">
+                            <div>
+                                <h3 className="font-medium">Bill To:</h3>
+                                <p className="text-sm">
+                                    <strong>Customer: {order?.name}</strong><br />
+                                    Address: {order?.address}<br />
+                                </p>
+                                <p className="text-sm">Order Date: {moment(order?.createdAt).format("MMMM D, YYYY")}</p>
+                            </div>
+                            <div className="text-right">
+                                <h3 className="font-medium">Payment Details:</h3>
+                                <p className="text-sm">Method: {order?.paymentMethod}</p>
+                                {/* <p className="text-sm">Due Date: {order.dueDate}</p> */}
+                            </div>
+                        </div>
+
+                        {/* Invoice Items */}
+                        <table className="w-full border-collapse mt-6">
+                            <thead>
+                                <tr className="border-b border-gray-200 bg-gray-100">
+                                    <th className="py-2 px-4 text-left">Product/Service</th>
+                                    <th className="py-2 px-4 text-right">Qty</th>
+                                    <th className="py-2 px-4 text-right">Size</th>
+                                    <th className="py-2 px-4 text-right">Total Price</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {/* {order.items.map((item, index) => ( */}
+                                <tr className="border-b border-gray-200">
+                                    <td className="py-2 px-4">{order?.package}</td>
+                                    <td className="py-2 px-4 text-right">{order?.quantity}</td>
+                                    <td className="py-2 px-4 text-right">{order?.size}</td>
+                                    <td className="py-2 px-4 text-right">${(order?.total).toFixed(2)}</td>
+                                </tr>
+                                {/* ))} */}
+                            </tbody>
+                            <tfoot>
+                                {/* <tr className="border-b border-gray-200">
                                 <td colSpan={3} className="py-2 px-4 text-right">Subtotal</td>
                                 <td className="py-2 px-4 text-right">${subtotal.toFixed(2)}</td>
                             </tr> */}
-                            <tr className="border-b border-gray-200">
-                                <td colSpan={3} className="py-2 px-4 text-right">Delivery Charge</td>
-                                <td className="py-2 px-4 text-right">${order.deliveryCharge.toFixed(2)}</td>
-                            </tr>
-                            <tr>
-                                <td colSpan={3} className="py-2 px-4 text-right font-medium">Total</td>
-                                <td className="py-2 px-4 text-right font-bold">${order?.total.toFixed(2)}</td>
-                            </tr>
-                        </tfoot>
-                    </table>
-
-                    {/* Buttons */}
-                    <div className="flex justify-end gap-2 mt-6">
-                             <button
-                                 onClick={handleSave}
-                                 className="inline-flex items-center gap-1 px-4 py-2 text-sm font-medium border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-                             >
-                                 <SaveIcon className="h-4 w-4" />
-                                 Save as PDF
-                             </button>
-                             <button
-                                 onClick={handlePrint}
-                                 className="inline-flex items-center gap-1 px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-                             >
-                                 <PrinterIcon className="h-4 w-4" />
-                                 Print
-                             </button>
-                         </div>
+                                <tr className="border-b border-gray-200">
+                                    <td colSpan={3} className="py-2 px-4 text-right">Delivery Charge</td>
+                                    <td className="py-2 px-4 text-right">${order.deliveryCharge.toFixed(2)}</td>
+                                </tr>
+                                <tr>
+                                    <td colSpan={3} className="py-2 px-4 text-right font-medium">Total</td>
+                                    <td className="py-2 px-4 text-right font-bold">${order?.total.toFixed(2)}</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    
+                </div>
+                {/* Buttons */}
+                <div className="flex justify-end gap-2 m-6 ">
+                    <button
+                        onClick={handleSave}
+                        className="inline-flex items-center gap-1 px-4 py-2 text-sm font-medium border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                    >
+                        <SaveIcon className="h-4 w-4" />
+                        Save as PDF
+                    </button>
+                    <button
+                        onClick={handlePrint}
+                        className="inline-flex items-center gap-1 px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                    >
+                        <PrinterIcon className="h-4 w-4" />
+                        Print
+                    </button>
                 </div>
                 <div className="bg-pink-600 p-2"></div>
             </div>

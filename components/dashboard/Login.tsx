@@ -161,7 +161,7 @@ export default function Login() {
             className="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition duration-150 ease-in-out"
             // disabled={loading}
           >
-            {loading ? "Logging in..." : "Log In"}
+            {loading ? "Login..." : "Log In"}
           </button>
         </form>
 

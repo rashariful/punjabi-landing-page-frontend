@@ -171,6 +171,7 @@ console.log(orders, 'orders');
                   <th className="p-3 text-left">Mobile No</th>
                   <th className="p-3 text-left">Size</th>
                   <th className="p-3 text-left">Delivery Status</th>
+                  <th className="p-3 text-left">Payment Method</th>
                   <th className="p-3 text-right">Quantity</th>
                   <th className="p-3 text-right">Total Price</th>
                   <th className="p-3 text-right">Invoice</th>
@@ -197,6 +198,7 @@ console.log(orders, 'orders');
                         {/* <option value="cancelled">Cancelled</option> */}
                       </select>
                     </td>
+                    <td className="p-3 text-right">{order?.paymentMethod}</td>
                     <td className="p-3 text-right">{order?.quantity}</td>
                     <td className="p-3 text-right">${order?.total.toFixed(2)}</td>
                     <td className="p-3 text-right"><button onClick={() => showInvoiceModal(order)} className="bg-pink-500 text-white p-2 rounded">Invoice</button></td>
