@@ -43,7 +43,7 @@ const Checkout = ({ product }: { product: Product }) => {
   const [selectedSize, setSelectedSize] = useState("40");
   const API_URL = process.env.NEXT_PUBLIC_REACT_APP_ROOT;
   const [error, setError] = useState<string | null>(null)
-  const [paymentMethod, setPaymentMethod] = useState("cash")
+  const [paymentMethod, setPaymentMethod] = useState("cashOnDelivery")
 
   const deliveryCharge = deliveryLocation === "inside" ? 70 : 130;
   const totalPrice = product.offerPrice * quantity + deliveryCharge;
@@ -110,10 +110,12 @@ const Checkout = ({ product }: { product: Product }) => {
       total: totalPrice,
       package: product.title,
       size: selectedSize,
-      transactionId,
+      paymentMethod, 
+    transactionId: paymentMethod !== "cash" ? transactionId : null,
+      // transactionId,
     };
 
-    // console.log("Sending Order Data:", orderData);
+    console.log("Sending Order Data:", orderData);
 
     try {
       const response = await fetch(`${API_URL}/orders`, {
@@ -128,7 +130,7 @@ const Checkout = ({ product }: { product: Product }) => {
       // console.log("API Response:", result);
 
       if (result.success) {
-        toast.success("অর্ডার সফলভাবে সম্পন্ন হয়েছে! SMS পাঠানো হয়েছে।");
+        toast.success("অর্ডার সফলভাবে সম্পন্ন হয়েছে!");
         // setTimeout(() => {
         //   window.location.href = "https://www.icchaporon.com/";
         // }, 2000);
@@ -142,193 +144,6 @@ const Checkout = ({ product }: { product: Product }) => {
   };
 
   return (
-    // <div ref={checkoutRef} id="checkout-section" className={`max-w-5xl mx-auto p-6 border-2 ${product?.size===false?"border-[#DE3163]":"border-[#0099DD]"} rounded-lg my-10`}>
-    //   <div className="mb-8">
-    //     <h2 className="text-lg font-medium mb-4 text-black">Your Products</h2>
-    //     <div className="flex items-center justify-between">
-    //       <div className="bg-gray-50 p-4 rounded-md">
-    //         <div className="flex items-center gap-4">
-    //           <Image src={product?.image} alt="Product" width={60} height={60} className="rounded-sm" />
-    //           <div className="flex-1 text-black">
-    //             <h3 className="font-bengali">{product.title}</h3>
-    //             <div className="flex items-center gap-2 mt-1">
-    //               <span className="text-sm">৳ {product.offerPrice}</span>
-    //             </div>
-    //           </div>
-    //         </div>
-    //       </div>
-    //       <div>
-    //         <h1 className="text-black">&quot;ন্যূনতম ডেলিভারি চার্জ দিয়ে অর্ডার নিশ্চিত করুন&quot;</h1>
-    //       </div>
-    //     </div>
-    //   </div>
-
-    //   <form onSubmit={handleSubmit} className="grid md:grid-cols-2 gap-8 text-black">
-    //     <div>
-    //       <h2 className="text-lg font-medium mb-4">Billing details</h2>
-    //       <div className="space-y-4">
-    //         <div>
-    //           <label className="block font-bengali mb-1">
-    //             তোমার নাম <span className="text-red-500">*</span>
-    //           </label>
-    //           <input
-    //             name="name"
-    //             value={name}
-    //             onChange={(e) => setName(e.target.value)}
-    //             type="text"
-    //             required
-    //             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-transparent"
-    //           />
-    //         </div>
-    //         <div>
-    //           {error && <p className="text-red-500 text-center mb-4">{error}</p>}
-    //           <label className="block font-bengali mb-1">
-    //             মোবাইল <span className="text-red-500">*</span>
-    //           </label>
-    //           <input
-    //             type="tel"
-    //             name="contactNo"
-    //             value={mobile}
-    //             onChange={handleContactChange}
-    //             required
-    //             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-transparent"
-    //           />
-    //         </div>
-    //         <div>
-    //           <label className="block font-bengali mb-1">
-    //             ঠিকানা <span className="text-red-500">*</span>
-    //           </label>
-    //           <textarea
-    //             rows={2} // Set 2 rows
-    //             required
-    //             name="address"
-    //             value={address}
-    //             onChange={(e) => setAdress(e.target.value)}
-    //             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-transparent"
-    //           ></textarea>
-    //         </div>
-
-    //         {/* Size Selection */}
-    //         {product?.size && (
-    //           <div>
-    //             <label className="block font-bengali mb-2 text-lg font-semibold">
-    //               সাইজ নির্বাচন করুন
-    //             </label>
-    //             <div className="flex gap-4">
-    //               {["40", "42", "44"].map((size) => (
-    //                 <button
-    //                   key={size}
-    //                   className={`px-6 py-2 text-sm font-semibold border rounded-md ${selectedSize === size
-    //                     ? `bg-[#0099DD] text-white`
-    //                     : "border-[#0099DD] text-[#0099DD]"
-    //                     }`}
-    //                   onClick={() => setSelectedSize(size)}
-    //                 >
-    //                   {size}
-    //                 </button>
-    //               ))}
-    //             </div>
-    //           </div>
-    //         )}
-    //         <div>
-    //           <label className="block font-bengali mb-2 text-lg font-semibold">
-    //             ডেলিভারি চার্জ
-    //           </label>
-    //           <div className="flex gap-4 items-center">
-    //             {/* Inside Dhaka Button */}
-    //             <button
-    //               className={`px-3 py-3 text-sm font-semibold border rounded-md ${deliveryLocation === "inside-dhaka"
-    //                 ? `bg-${product?.bgColor} text-white`
-    //                 : `border-${product?.bgColor} text-${product.bgColor}`
-    //                 }`}
-    //               onClick={() => setDeliveryLocation("inside-dhaka")}
-    //             >
-    //               ঢাকার ভিতরে (Inside Dhaka)
-    //             </button>
-
-    //             {/* Outside Dhaka Button */}
-    //             <button
-    //               className={`px-4 py-3 text-sm font-semibold border rounded-md ${deliveryLocation === "outside-dhaka"
-    //                 ? `bg-${product?.bgColor} text-white`
-    //                 : `border-${product?.bgColor} text-${product?.bgColor}`
-    //                 }`}
-    //               onClick={() => setDeliveryLocation("outside-dhaka")}
-    //             >
-    //               ঢাকার বাহিরে (Outside Dhaka)
-    //             </button>
-    //           </div>
-    //         </div>
-
-
-    //       </div>
-    //     </div>
-
-    //     <div className="text-black">
-    //       <h2 className="text-lg font-medium mb-4">Your order</h2>
-    //       <div className="bg-white border rounded-lg p-4 shadow-sm">
-    //         <div className="space-y-4">
-    //           <div>
-    //             <div className="flex justify-between text-sm text-gray-600 mb-2">
-    //               <span>Product</span>
-    //             </div>
-    //             <div className="flex justify-between items-center py-2 border-t">
-    //               <span className="font-bengali text-sm">{product.title}</span>
-    //               <div className="flex items-center gap-2 border border-gray-300 rounded-md">
-    //                 <button
-    //                   type="button"
-    //                   onClick={() => setQuantity((prev) => Math.max(1, prev - 1))}
-    //                   className={`px-3 py-1 border rounded-l bg-${product?.bgColor}  text-white`}
-    //                 >
-    //                   -
-    //                 </button>
-    //                 <span className="text-base">{quantity}</span>
-    //                 <button
-    //                   type="button"
-    //                   onClick={() => setQuantity((prev) => Math.min(5, prev + 1))}
-    //                   className={`px-3 py-1 border rounded-r bg-${product?.bgColor}  text-white`}
-    //                   disabled={quantity >= 5}
-    //                   style={{ opacity: quantity >= 5 ? 0.5 : 1, cursor: quantity >= 5 ? 'not-allowed' : 'pointer' }}
-    //                 >
-    //                   +
-    //                 </button>
-    //               </div>
-    //               <span className="text-sm">৳ {(product.offerPrice * quantity).toFixed(2)}</span>
-    //             </div>
-
-    //           </div>
-
-    //           <div className="flex justify-between border-t pt-2">
-    //             <span>Delivery Charge</span>
-    //             <span>৳ {deliveryCharge}</span>
-    //           </div>
-
-    //           <div className="flex justify-between border-t pt-2 font-medium">
-    //             <span>Total</span>
-    //             <span className="text-lg">৳ {totalPrice.toFixed(2)}</span>
-    //           </div>
-    //           <div>
-    //             <label className="block font-bengali mb-1">
-    //               Transaction ID <span className="text-red-500">*</span>
-    //             </label>
-    //             <input
-    //               type="text"
-    //               name="transactionId"
-    //               value={transactionId}
-    //               onChange={handleTransactionIdChange}
-    //               required
-    //               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-transparent"
-    //             />
-    //           </div>
-
-    //           <button className={`w-full px-4 py-2  bg-${product?.bgColor} hover:bg-${product?.bgColor} text-white rounded-md transition-colors`}>
-    //             Place Order
-    //           </button>
-    //         </div>
-    //       </div>
-    //     </div>
-    //   </form>
-    //   <Toaster />
-    // </div>
     <div ref={checkoutRef} id="checkout-section" className="mx-auto max-w-5xl">
       <h2 className="mb-8 text-3xl font-bold text-center text-gray-800">Your Order</h2>
 
@@ -343,7 +158,7 @@ const Checkout = ({ product }: { product: Product }) => {
               className="rounded-lg border-4 border-white shadow-md"
             />
             <div>
-              <h3 className="text-2xl font-bold mb-2">প্রিমিয়াম পাঞ্জাবি প্যাকেজ</h3>
+              <h3 className="text-2xl font-bold mb-2">{product?.name}</h3>
               <p className="text-xl">৳ {product?.offerPrice}</p>
             </div>
           </div>
@@ -362,7 +177,7 @@ const Checkout = ({ product }: { product: Product }) => {
                   name="name"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className={`w-full rounded-md border-gray-300 shadow-sm border focus:ring focus:ring-${product.bgColor}  p-2 outline-none`}
+                  className={`w-full rounded-md border-gray-300 shadow-sm text-black border focus:ring focus:ring-${product.bgColor}  p-2 outline-none`}
                   required
                 />
               </div>
@@ -374,10 +189,10 @@ const Checkout = ({ product }: { product: Product }) => {
                   name="contactNo"
                   value={mobile}
                   onChange={handleContactChange}
-                  className={`w-full rounded-md border-gray-300 shadow-sm border focus:ring focus:ring-${product.bgColor}  p-2 outline-none`}
+                  className={`w-full rounded-md border-gray-300 text-black shadow-sm border focus:ring focus:ring-${product.bgColor}  p-2 outline-none`}
                   required
                 />
-                {error && <p className="text-red-500 text-center">{error}</p>}
+                {error && <p className="text-red-500 ">{error}</p>}
               </div>
 
               <div>
@@ -386,7 +201,7 @@ const Checkout = ({ product }: { product: Product }) => {
                   name="address"
                   value={address}
                   onChange={(e) => setAdress(e.target.value)}
-                  className={`w-full rounded-md border-gray-300 shadow-sm border focus:ring focus:ring-${product.bgColor}  p-2 outline-none`}
+                  className={`w-full rounded-md text-black border-gray-300 shadow-sm border focus:ring focus:ring-${product.bgColor}  p-2 outline-none`}
                   rows={3}
                   required
                 />
@@ -444,18 +259,18 @@ const Checkout = ({ product }: { product: Product }) => {
                 <div className="flex items-center gap-2">
                   <button
                     onClick={() => setQuantity((prev) => Math.max(1, prev - 1))}
-                    className={`rounded-full bg-${product?.bgColor} p-1 text-white transition-colors`}
+                    className={`rounded-full bg-${product?.bgColor} p-1 text-white transition-colors border-none`}
                   >
                     <Minus className="h-4 w-4" />
                   </button>
                   <span className="min-w-[2rem] text-center font-medium text-black">{quantity}</span>
                   <button
                     onClick={() => setQuantity((prev) => Math.min(5, prev + 1))}
-                    className={`rounded-full bg-${product?.bgColor} p-1 text-white transition-colors`}
+                    className={`rounded-full bg-${product?.bgColor} p-1 text-white transition-colors border-none ${quantity >=5 ? "cursor-not-allowed": "cursor-pointer"}`}
                   >
                     <Plus className="h-4 w-4" />
                   </button>
-                  <span className="ml-4 font-medium">৳ {product.offerPrice * quantity}.00</span>
+                  <span className="ml-4 font-medium text-black">৳ {product.offerPrice * quantity}.00</span>
                 </div>
               </div>
 
@@ -473,8 +288,8 @@ const Checkout = ({ product }: { product: Product }) => {
                 <label className="block text-sm font-medium text-gray-700 mb-2">Payment Method</label>
                 <div className="space-y-2">
                   <button
-                    onClick={() => setPaymentMethod("cash")}
-                    className={`w-full rounded-md px-4 py-2 text-left transition-colors ${paymentMethod === "cash"
+                    onClick={() => setPaymentMethod("cashOnDelivery")}
+                    className={`w-full rounded-md px-4 py-2 text-left transition-colors ${paymentMethod === "cashOnDelivery"
                         ? `bg-${product?.bgColor} text-white`
                         : "bg-white border border-gray-300 text-gray-800 hover:bg-gray-50"
                       }`}
@@ -522,14 +337,14 @@ const Checkout = ({ product }: { product: Product }) => {
                   <div className="flex justify-center mb-4">
                     <Image
                       src={paymentMethod === "bkash" ? "/images/bikas.jpg" : "/images/nogod.jpg"}
-                      alt={`${paymentMethod === "bkash" ? "bKash" : "Nagad"} QR Code`}
+                      alt={`${paymentMethod === "bkash" ? "bkash" : "Nagad"} QR Code`}
                       width={150}
                       height={150}
                       className="rounded-lg"
                     />
                   </div>
                   <p className="text-center text-sm text-gray-600 mb-4">
-                    Scan this QR code to pay with {paymentMethod === "bkash" ? "bKash" : "Nagad"}
+                    Scan this QR code to pay with {paymentMethod === "bkash" ? "bkash" : "Nagad"}
                   </p>
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">Transaction ID *</label>
@@ -538,7 +353,7 @@ const Checkout = ({ product }: { product: Product }) => {
                       name="transactionId"
                    value={transactionId}
                    onChange={handleTransactionIdChange}
-                      className={`w-full rounded-md border-gray-300 shadow-sm border focus:ring focus:ring-${product.bgColor}  p-2 outline-none`}
+                      className={`w-full rounded-md border-gray-300 shadow-sm border focus:ring focus:ring-${product.bgColor} text-black  p-2 outline-none`}
                       required
                     />
                   </div>

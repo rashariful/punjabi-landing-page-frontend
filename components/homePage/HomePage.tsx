@@ -175,7 +175,7 @@ const HomePage = ({ product }: { product: Product }) => {
                                     </div>
                                     <div className="flex items-center !justify-between gap-10">
                                         <h1 className="text-gray-800 font-semibold">{product.productName}</h1>
-                                        <p className="text-gray-700 font-medium ">৳{product.productPrice}</p>
+                                        <p className="text-gray-700 font-semibold ">৳{product.productPrice}</p>
                                     </div>
                                 </div>
                             ))}

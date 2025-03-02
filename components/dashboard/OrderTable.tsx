@@ -13,12 +13,17 @@ type Order = {
   transactionId: string;
   name: string;
   contactNo: string;
-  status: "pending" | "processing" | "completed" | "cancelled";
+  status: "pending" | "processing" | "completed";
   quantity: number;
   total: number;
   size: string;
   package: string;
   createdAt: string;
+  deliveryCharge: number;
+  paymentMethod: string;
+  // dueDate: string;
+  orderId: string;
+  address: string;
 };
 
 const getStatusColor = (status: Order["status"]) => {
@@ -29,8 +34,8 @@ const getStatusColor = (status: Order["status"]) => {
       return "bg-blue-100 text-blue-800";
     case "completed":
       return "bg-green-100 text-green-800";
-    case "cancelled":
-      return "bg-red-100 text-red-800";
+    // case "cancelled":
+    //   return "bg-red-100 text-red-800";
     default:
       return "bg-gray-100 text-gray-800";
   }
@@ -46,7 +51,11 @@ export default function OrderTable() {
   const router = useRouter();
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isInvoiceModalVisible, setIsInvoiceModalVisible] = useState(false);
-  const showInvoiceModal = () => setIsInvoiceModalVisible(true);
+  const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
+  const showInvoiceModal = (order: Order) => {
+    setSelectedOrder(order);
+    setIsInvoiceModalVisible(true);
+  };
   const closeInvoiceModal = () => setIsInvoiceModalVisible(false);
   const showModal = () => setIsModalVisible(true);
   const closeModal = () => setIsModalVisible(false);
@@ -190,7 +199,7 @@ console.log(orders, 'orders');
                     </td>
                     <td className="p-3 text-right">{order?.quantity}</td>
                     <td className="p-3 text-right">${order?.total.toFixed(2)}</td>
-                    <td className="p-3 text-right"><button onClick={showInvoiceModal} className="bg-pink-500 text-white p-2 rounded">Invoice</button></td>
+                    <td className="p-3 text-right"><button onClick={() => showInvoiceModal(order)} className="bg-pink-500 text-white p-2 rounded">Invoice</button></td>
                   </tr>
                 ))}
               </tbody>
@@ -221,7 +230,7 @@ console.log(orders, 'orders');
         </button>
       </div>
       <ChangePassword visible={isModalVisible} onClose={closeModal}  />
-      <InvoiceTemplate visible={isInvoiceModalVisible} onClose={closeInvoiceModal}/>
+      {selectedOrder && <InvoiceTemplate visible={isInvoiceModalVisible} onClose={closeInvoiceModal} order={selectedOrder}/>}
     </div>
   );
 }
