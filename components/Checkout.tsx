@@ -43,7 +43,7 @@ const Checkout = ({ product }: { product: Product }) => {
   const [selectedSize, setSelectedSize] = useState("40");
   const API_URL = process.env.NEXT_PUBLIC_REACT_APP_ROOT;
   const [error, setError] = useState<string | null>(null)
-  const [paymentMethod, setPaymentMethod] = useState("cash")
+  const [paymentMethod, setPaymentMethod] = useState("cod")
 
   const deliveryCharge = deliveryLocation === "inside" ? 70 : 130;
   const totalPrice = product.offerPrice * quantity + deliveryCharge;
@@ -111,7 +111,7 @@ const Checkout = ({ product }: { product: Product }) => {
       package: product.title,
       size: selectedSize,
       paymentMethod, 
-    transactionId: paymentMethod !== "cash" ? transactionId : null,
+    transactionId: paymentMethod !== "cod" ? transactionId : null,
       // transactionId,
     };
 
@@ -127,13 +127,21 @@ const Checkout = ({ product }: { product: Product }) => {
       });
       // console.log("Full Response:", response);
       const result = await response.json();
-      // console.log("API Response:", result);
+      console.log("API Response:", result);
 
       if (result.success) {
         toast.success("অর্ডার সফলভাবে সম্পন্ন হয়েছে!");
         // setTimeout(() => {
         //   window.location.href = "https://www.icchaporon.com/";
         // }, 2000);
+        setName("");
+      setMobile("");
+      setAdress("");
+      setTransactionId("");
+      setQuantity(1);
+      setDeliveryLocation("inside");
+      setSelectedSize("40");
+      setPaymentMethod("cod");
       } 
       else {
         toast.error(`অর্ডার ব্যর্থ: ${ "অনুগ্রহ করে আবার চেষ্টা করুন!"}`);
@@ -213,6 +221,7 @@ const Checkout = ({ product }: { product: Product }) => {
                 <div className="flex gap-2">
                   {["40", "42", "44"].map((size) => (
                     <button
+                    type="button"
                       key={size}
                       onClick={() => setSelectedSize(size)}
                       className={`rounded-md px-4 py-2 transition-colors ${selectedSize === size ? `bg-${product?.bgColor} text-white` : "bg-gray-100 text-gray-800 hover:bg-gray-200"
@@ -228,6 +237,7 @@ const Checkout = ({ product }: { product: Product }) => {
                 <label className="block text-sm font-medium text-gray-700 mb-2">ডেলিভারি চার্জ</label>
                 <div className="flex gap-2">
                   <button
+                  type="button"
                     onClick={() => setDeliveryLocation("inside")}
                     className={`rounded-md px-4 py-2 transition-colors ${deliveryLocation === "inside"
                         ? `bg-${product?.bgColor} text-white`
@@ -237,6 +247,7 @@ const Checkout = ({ product }: { product: Product }) => {
                     ঢাকার ভিতরে (Inside Dhaka)
                   </button>
                   <button
+                  type="button"
                     onClick={() => setDeliveryLocation("outside")}
                     className={`rounded-md px-4 py-2 transition-colors ${deliveryLocation === "outside"
                         ? `bg-${product?.bgColor} text-white`
@@ -259,6 +270,7 @@ const Checkout = ({ product }: { product: Product }) => {
                 <span className="font-medium text-black">Product</span>
                 <div className="flex items-center gap-2">
                   <button
+                  type="button"
                     onClick={() => setQuantity((prev) => Math.max(1, prev - 1))}
                     className={`rounded-full bg-${product?.bgColor} p-1 text-white transition-colors border-none`}
                   >
@@ -266,6 +278,7 @@ const Checkout = ({ product }: { product: Product }) => {
                   </button>
                   <span className="min-w-[2rem] text-center font-medium text-black">{quantity}</span>
                   <button
+                  type="button"
                     onClick={() => setQuantity((prev) => Math.min(5, prev + 1))}
                     className={`rounded-full bg-${product?.bgColor} p-1 text-white transition-colors border-none ${quantity >=5 ? "cursor-not-allowed": "cursor-pointer"}`}
                   >
@@ -289,8 +302,9 @@ const Checkout = ({ product }: { product: Product }) => {
                 <label className="block text-sm font-medium text-gray-700 mb-2">Payment Method</label>
                 <div className="space-y-2">
                   <button
-                    onClick={() => setPaymentMethod("cash")}
-                    className={`w-full rounded-md px-4 py-2 text-left transition-colors ${paymentMethod === "cash"
+                  type="button"
+                    onClick={() => setPaymentMethod("cod")}
+                    className={`w-full rounded-md px-4 py-2 text-left transition-colors ${paymentMethod === "cod"
                         ? `bg-${product?.bgColor} text-white`
                         : "bg-white border border-gray-300 text-gray-800 hover:bg-gray-50"
                       }`}
@@ -299,6 +313,7 @@ const Checkout = ({ product }: { product: Product }) => {
                     Cash on Delivery
                   </button>
                   <button
+                  type="button"
                     onClick={() => setPaymentMethod("bkash")}
                     className={`w-full rounded-md px-4 py-2 text-left transition-colors ${paymentMethod === "bkash"
                         ? `bg-${product?.bgColor} text-white`
@@ -315,6 +330,7 @@ const Checkout = ({ product }: { product: Product }) => {
                     bKash Payment
                   </button>
                   <button
+                  type="button"
                     onClick={() => setPaymentMethod("nagad")}
                     className={`w-full rounded-md px-4 py-2 text-left transition-colors ${paymentMethod === "nagad"
                         ? `bg-${product?.bgColor} text-white`
@@ -361,7 +377,7 @@ const Checkout = ({ product }: { product: Product }) => {
                 </div>
               )}
 
-              <button className={`w-full rounded-md bg-${product?.bgColor} py-3 text-white font-semibold transition-colors`}>
+              <button type="submit" className={`w-full rounded-md bg-${product?.bgColor} py-3 text-white font-semibold transition-colors`}>
                 Place Order
               </button>
             </div>
