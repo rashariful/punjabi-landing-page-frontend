@@ -44,6 +44,7 @@ const Checkout = ({ product }: { product: Product }) => {
   const API_URL = process.env.NEXT_PUBLIC_REACT_APP_ROOT;
   const [error, setError] = useState<string | null>(null)
   const [paymentMethod, setPaymentMethod] = useState("cod")
+  const [loading, setLoading] = useState(false);
 
   const deliveryCharge = deliveryLocation === "inside" ? 70 : 130;
   const totalPrice = product.offerPrice * quantity + deliveryCharge;
@@ -85,6 +86,7 @@ const Checkout = ({ product }: { product: Product }) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
 
     if (!name || !mobile || !address) {
       toast.error("সব প্রয়োজনীয় তথ্য পূরণ করুন!");
@@ -115,7 +117,7 @@ const Checkout = ({ product }: { product: Product }) => {
       // transactionId,
     };
 
-    console.log("Sending Order Data:", orderData);
+    // console.log("Sending Order Data:", orderData);
 
     try {
       const response = await fetch(`${API_URL}/orders`, {
@@ -127,13 +129,14 @@ const Checkout = ({ product }: { product: Product }) => {
       });
       // console.log("Full Response:", response);
       const result = await response.json();
-      console.log("API Response:", result);
+      setLoading(false);
+      // console.log("API Response:", result);
 
       if (result.success) {
         toast.success("অর্ডার সফলভাবে সম্পন্ন হয়েছে!");
-        // setTimeout(() => {
-        //   window.location.href = "https://www.icchaporon.com/";
-        // }, 2000);
+        setTimeout(() => {
+          window.location.href = "/order-confirm";
+        }, 2000);
         setName("");
       setMobile("");
       setAdress("");
@@ -147,6 +150,7 @@ const Checkout = ({ product }: { product: Product }) => {
         toast.error(`অর্ডার ব্যর্থ: ${ "অনুগ্রহ করে আবার চেষ্টা করুন!"}`);
       }
     } catch (error) {
+      setLoading(false);
       console.error("Error sending order:", error);
       toast.error("অর্ডার সম্পন্ন করতে ব্যর্থ হয়েছে!");
     }
@@ -377,8 +381,8 @@ const Checkout = ({ product }: { product: Product }) => {
                 </div>
               )}
 
-              <button type="submit" className={`w-full rounded-md bg-${product?.bgColor} py-3 text-white font-semibold transition-colors`}>
-                Place Order
+              <button disabled={loading} type="submit" className={`w-full rounded-md bg-${product?.bgColor} py-3 text-white font-semibold transition-colors`}>
+              {loading ? "Processing..." : "Place Order"}
               </button>
             </div>
           </div>
