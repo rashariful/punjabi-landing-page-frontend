@@ -2,7 +2,7 @@ import OrderConfirmation from "@/components/OrderConfirm";
 
 const page = () => {
     return (
-        <div>
+        <div className="bg-white">
             <OrderConfirmation/>
         </div>
     );

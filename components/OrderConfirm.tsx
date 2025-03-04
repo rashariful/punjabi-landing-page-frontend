@@ -9,7 +9,7 @@ import { CheckCircle,  Clock, ArrowRight } from "lucide-react"
 // const Button = ({ children, variant = "primary", className = "", ...props }) => {
 //   const baseStyle = "px-4 py-2 rounded-md font-medium transition-colors duration-200 ease-in-out"
 //   const variants = {
-//     primary: "bg-green-600 text-white hover:bg-green-700",
+//     primary: "bg-prink-600 text-white hover:bg-green-700",
 //     outline: "border border-gray-300 text-gray-700 hover:bg-gray-50",
 //   }
 
@@ -42,8 +42,8 @@ export default function OrderConfirmation() {
   return (
     <div className="container max-w-3xl mx-auto px-4 py-12">
       <div className="flex flex-col items-center text-center mb-8">
-        <div className="h-20 w-20 rounded-full bg-green-100 flex items-center justify-center mb-4">
-          <CheckCircle className="h-12 w-12 text-green-600" />
+        <div className="h-20 w-20 rounded-full bg-pink-100 flex items-center justify-center mb-4">
+          <CheckCircle className="h-12 w-12 text-prink-600" />
         </div>
         <h1 className="text-3xl font-bold mb-2">Order Confirmed!</h1>
         <p className="text-gray-600 max-w-md">
@@ -60,7 +60,7 @@ export default function OrderConfirmation() {
         </div>
         <div className="flex justify-center">
           <Link href="/" passHref>
-            <button className="flex items-center bg-green-600 text-white hover:bg-green-700 px-4 py-2 rounded-md font-medium transition-colors duration-200 ease-in-out">
+            <button className="flex items-center bg-prink-600 text-white hover:bg-pink-700 px-4 py-2 rounded-md font-medium transition-colors duration-200 ease-in-out">
               Continue Shopping
               <ArrowRight className="ml-2 h-4 w-4" />
             </button>

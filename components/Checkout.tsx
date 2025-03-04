@@ -133,7 +133,7 @@ const Checkout = ({ product }: { product: Product }) => {
       // console.log("API Response:", result);
 
       if (result.success) {
-        toast.success("অর্ডার সফলভাবে সম্পন্ন হয়েছে!");
+        // toast.success("অর্ডার সফলভাবে সম্পন্ন হয়েছে!");
         setTimeout(() => {
           window.location.href = "/order-confirm";
         }, 2000);
