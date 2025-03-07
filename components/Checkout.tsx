@@ -157,11 +157,11 @@ const Checkout = ({ product }: { product: Product }) => {
   };
 
   return (
-    <div ref={checkoutRef} id="checkout-section" className="mx-auto max-w-5xl">
+    <div ref={checkoutRef} id="checkout-section" className="mx-auto max-w-5xl mt-10">
       <h2 className="mb-8 text-3xl font-bold text-center text-gray-800">Your Order</h2>
 
       <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-        <div className={`p-6 bg-gradient-to-r bg-${product?.bgColor} text-white`}>
+        <div className={`p-6 bg-gradient-to-r to-[#b828b3] from-[#93278F] text-white`}>
           <div className="flex items-center gap-6">
             <Image
               src={product.image}
@@ -190,7 +190,7 @@ const Checkout = ({ product }: { product: Product }) => {
                   name="name"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className={`w-full rounded-md border-gray-300 shadow-sm text-black border focus:ring focus:ring-${product.bgColor}  p-2 outline-none`}
+                  className={`w-full rounded-md border-gray-300 shadow-sm text-black border focus:ring focus:ring-[#93278F]  p-2 outline-none`}
                   required
                 />
               </div>
@@ -202,7 +202,7 @@ const Checkout = ({ product }: { product: Product }) => {
                   name="contactNo"
                   value={mobile}
                   onChange={handleContactChange}
-                  className={`w-full rounded-md border-gray-300 text-black shadow-sm border focus:ring focus:ring-${product.bgColor}  p-2 outline-none`}
+                  className={`w-full rounded-md border-gray-300 text-black shadow-sm border focus:ring focus:ring-[#93278F]  p-2 outline-none`}
                   required
                 />
                 {error && <p className="text-red-500 ">{error}</p>}
@@ -214,7 +214,7 @@ const Checkout = ({ product }: { product: Product }) => {
                   name="address"
                   value={address}
                   onChange={(e) => setAdress(e.target.value)}
-                  className={`w-full rounded-md text-black border-gray-300 shadow-sm border focus:ring focus:ring-${product.bgColor}  p-2 outline-none`}
+                  className={`w-full rounded-md text-black border-gray-300 shadow-sm border focus:ring focus:ring-[#93278F]  p-2 outline-none`}
                   rows={3}
                   required
                 />
@@ -228,7 +228,7 @@ const Checkout = ({ product }: { product: Product }) => {
                     type="button"
                       key={size}
                       onClick={() => setSelectedSize(size)}
-                      className={`rounded-md px-4 py-2 transition-colors ${selectedSize === size ? `bg-${product?.bgColor} text-white` : "bg-gray-100 text-gray-800 hover:bg-gray-200"
+                      className={`rounded-md px-4 py-2 transition-colors ${selectedSize === size ? `bg-[#93278F] text-white` : "bg-gray-100 text-gray-800 hover:bg-gray-200"
                         }`}
                     >
                       {size}
@@ -244,7 +244,7 @@ const Checkout = ({ product }: { product: Product }) => {
                   type="button"
                     onClick={() => setDeliveryLocation("inside")}
                     className={`rounded-md px-4 py-2 transition-colors ${deliveryLocation === "inside"
-                        ? `bg-${product?.bgColor} text-white`
+                        ? `bg-[#93278F] text-white`
                         : "bg-gray-100 text-gray-800 hover:bg-gray-200"
                       }`}
                   >
@@ -276,7 +276,7 @@ const Checkout = ({ product }: { product: Product }) => {
                   <button
                   type="button"
                     onClick={() => setQuantity((prev) => Math.max(1, prev - 1))}
-                    className={`rounded-full bg-${product?.bgColor} p-1 text-white transition-colors border-none`}
+                    className={`rounded-full bg-[#93278F] p-1 text-white transition-colors border-none`}
                   >
                     <Minus className="h-4 w-4" />
                   </button>
@@ -284,7 +284,7 @@ const Checkout = ({ product }: { product: Product }) => {
                   <button
                   type="button"
                     onClick={() => setQuantity((prev) => Math.min(5, prev + 1))}
-                    className={`rounded-full bg-${product?.bgColor} p-1 text-white transition-colors border-none ${quantity >=5 ? "cursor-not-allowed": "cursor-pointer"}`}
+                    className={`rounded-full bg-[#93278F] p-1 text-white transition-colors border-none ${quantity >=5 ? "cursor-not-allowed": "cursor-pointer"}`}
                   >
                     <Plus className="h-4 w-4" />
                   </button>
@@ -309,7 +309,7 @@ const Checkout = ({ product }: { product: Product }) => {
                   type="button"
                     onClick={() => setPaymentMethod("cod")}
                     className={`w-full rounded-md px-4 py-2 text-left transition-colors ${paymentMethod === "cod"
-                        ? `bg-${product?.bgColor} text-white`
+                        ? `bg-[#93278F] text-white`
                         : "bg-white border border-gray-300 text-gray-800 hover:bg-gray-50"
                       }`}
                   >
@@ -320,7 +320,7 @@ const Checkout = ({ product }: { product: Product }) => {
                   type="button"
                     onClick={() => setPaymentMethod("bkash")}
                     className={`w-full rounded-md px-4 py-2 text-left transition-colors ${paymentMethod === "bkash"
-                        ? `bg-${product?.bgColor} text-white`
+                        ? `bg-[#93278F] text-white`
                         : "bg-white border border-gray-300 text-gray-800 hover:bg-gray-50"
                       }`}
                   >
@@ -337,7 +337,7 @@ const Checkout = ({ product }: { product: Product }) => {
                   type="button"
                     onClick={() => setPaymentMethod("nagad")}
                     className={`w-full rounded-md px-4 py-2 text-left transition-colors ${paymentMethod === "nagad"
-                        ? `bg-${product?.bgColor} text-white`
+                        ? `bg-[#93278F] text-white`
                         : "bg-white border border-gray-300 text-gray-800 hover:bg-gray-50"
                       }`}
                   >
@@ -374,14 +374,14 @@ const Checkout = ({ product }: { product: Product }) => {
                       name="transactionId"
                    value={transactionId}
                    onChange={handleTransactionIdChange}
-                      className={`w-full rounded-md border-gray-300 shadow-sm border focus:ring focus:ring-${product.bgColor} text-black  p-2 outline-none`}
+                      className={`w-full rounded-md border-gray-300 shadow-sm border focus:ring focus:ring-[#93278F] text-black  p-2 outline-none`}
                       required
                     />
                   </div>
                 </div>
               )}
 
-              <button disabled={loading} type="submit" className={`w-full rounded-md bg-${product?.bgColor} py-3 text-white font-semibold transition-colors`}>
+              <button disabled={loading} type="submit" className={`w-full rounded-md bg-[#93278F] py-3 text-white font-semibold transition-colors`}>
               {loading ? "Processing..." : "Place Order"}
               </button>
             </div>

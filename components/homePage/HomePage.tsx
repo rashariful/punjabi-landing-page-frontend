@@ -7,6 +7,7 @@ import { ShoppingCart } from "lucide-react"
 import CountdownTimer from "../shared/CountdownTimer"
 import ReviewSection from "../Review"
 import WhatsAppChatButton from "./WhatsAppChatButton"
+import Checkout from "../Checkout"
 
 interface ProductDetail {
     productImage: string;
@@ -33,6 +34,7 @@ type Product = {
         imageUrl: string;
     }[];
     bgColor: string;
+    size: boolean;
 };
 
 
@@ -66,7 +68,7 @@ const HomePage = ({ product }: { product: Product }) => {
         <main className="max-w-5xl mx-auto pt-5">
             <div className="flex flex-col lg:flex-row justify-between items-center pb-10 space-y-5 lg:space-y-0">
                 <div className="lg:w-[64%]">
-                    <h2 className="text-center lg:text-left text-4xl font-bold text-gray-700 w-full">আমাদের চমৎকার প্যাকেজ স্বাগতম</h2>
+                    <h2 className="text-center lg:text-left text-4xl font-bold text-gray-700 w-full">আমাদের চমৎকার অফার স্বাগতম</h2>
                 </div>
                 <div className="lg:w-[36%]">
                     <CountdownTimer startDate={product?.startDate} endDate={product?.endDate} />
@@ -74,7 +76,7 @@ const HomePage = ({ product }: { product: Product }) => {
             </div>
             <div className="">
                 {/* Main Banner */}
-                <div className={`bg-${product.bgColor} text-white text-center`}>
+                <div className={` bg-gradient-to-r to-[#b828b3] from-[#93278F] text-white text-center`}>
                     {/* Regular Price */}
                     <div className="text-[28px] font-medium leading-tight pt-4">
                         রেগুলার প্রাইস <span className="text-[#FFE600]">{product.totalPrice}</span> টাকা
@@ -96,7 +98,7 @@ const HomePage = ({ product }: { product: Product }) => {
 
                 {/* Order Button */}
                 <div className="flex justify-center mt-10 mb-5">
-                    <button onClick={handleOrderClick} className={`bg-${product.bgColor} animate-bounce text-white px-8 py-2.5 rounded-md flex items-center gap-2 text-xl`}>
+                    <button onClick={handleOrderClick} className={`bg-[#93278F] animate-bounce text-white px-8 py-2.5 rounded-md flex items-center gap-2 text-xl`}>
                         <ShoppingCart className="w-6 h-6" />
                         অর্ডার করুন
                     </button>
@@ -140,7 +142,7 @@ const HomePage = ({ product }: { product: Product }) => {
                 </div>
 
                 <div className="flex justify-center my-10">
-                    <button onClick={handleOrderClick} className={`bg-${product.bgColor} animate-bounce text-white px-8 py-2.5 rounded-md flex items-center gap-2 text-xl `}>
+                    <button onClick={handleOrderClick} className={`bg-[#93278F] animate-bounce text-white px-8 py-2.5 rounded-md flex items-center gap-2 text-xl `}>
                         <ShoppingCart className="w-6 h-6" />
                         অর্ডার করুন
                     </button>
@@ -148,7 +150,7 @@ const HomePage = ({ product }: { product: Product }) => {
 
                 <div className="flex justify-center">
                     <div className="">
-                        <h2 className="text-center text-3xl font-bold mb-5 text-black">রমজান স্পেশাল {product.title} অন্তর্ভুক্ত:</h2>
+                        <h2 className="text-center text-3xl font-bold mb-5 text-black">রমজান স্পেশাল {product.title}:</h2>
                         {/* <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                             {product?.details?.map((product, index) => (
                                 <div key={index} className="flex items-center text-3xl text-black">
@@ -191,7 +193,7 @@ const HomePage = ({ product }: { product: Product }) => {
                                     অফার প্রাইস মাত্র <span className="text-purple-700 underline decoration-purple-700">{product?.offerPrice}</span> টাকা
                                 </div>
                                 <div className="flex justify-center">
-                                <button onClick={handleOrderClick} className={`bg-${product.bgColor} animate-bounce text-white px-8 py-2.5 rounded-md flex items-center gap-2 text-xl mt-10 `}>
+                                <button onClick={handleOrderClick} className={`bg-[#93278F] animate-bounce text-white px-8 py-2.5 rounded-md flex items-center gap-2 text-xl mt-10 `}>
                                     <ShoppingCart className="w-6 h-6" />
                                     অর্ডার করুন
                                 </button>
@@ -215,6 +217,7 @@ const HomePage = ({ product }: { product: Product }) => {
 
                 <ReviewSection />
                 <WhatsAppChatButton />
+                <Checkout product={product} />
             </div>
         </main>
     )
